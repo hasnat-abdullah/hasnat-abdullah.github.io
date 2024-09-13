@@ -7,10 +7,8 @@ first_name: Hasnat
 middle_name: ""
 last_name: Abdullah
 email: abdullah.2010bd@gmail.com
-description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  Its a personal portfolio website of Abu Hasnat Abdullah from Dhaka, Bangladesh. He is an expert of Python, django, llm, AI, ML and leadership.
-footer_text: >
-2024 Hasnat Abdullah
+description: Its a personal portfolio website of Abu Hasnat Abdullah from Dhaka, Bangladesh. He is an expert of Python, django, llm, AI, ML and leadership.
+footer_text: 2024 Hasnat Abdullah
 keywords: best python programmer,django,llm, database, remote software engineer,nsu,cse,nosql,python tech blog
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: 🍭 # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
