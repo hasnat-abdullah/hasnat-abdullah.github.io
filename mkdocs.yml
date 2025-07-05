@@ -1,15 +1,16 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
-site_name: Hasnat Abdullah
-site_url: https://hasnatabdullah.com
+site_name: HASNAT ABDULLAH
+site_description: Senior Software Engineer(Backend, django, AI, ML, LLM, Database, Timeseries, ETL), Researcher
+site_url: https://hasnat-abdullah.github.io
 
 theme:
   name: material
   icon:
     logo: simple/codechef
-  favicon: simple/codechef
+  favicon: assets/images/favicon.png
 
   font:
-    text: Roboto
+    text: Roboto Mono
     code: Roboto Mono
 
   palette:
@@ -45,7 +46,7 @@ theme:
     - search.highlight
     - search.boost
     - header.autohide
-    - navigation.footer
+    - content.footnote.tooltips
 
 plugins:
   - search
@@ -53,12 +54,12 @@ plugins:
   - blog:
       post_url_format: "{categories}/{slug}"
       archive: false
-#  - rss:
-#      match_path: blog/posts/.*
-#      date_from_meta:
-#        as_creation: date
-#      categories:
-#        - categories
+  - rss:
+      match_path: blog/posts/.*
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
 #  - meta
 #  - optimize
   - offline
@@ -108,3 +109,13 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+
+extra_css:
+  - assets/css/custom.css
+
+nav:
+  - HOME: index.md
+  - PORTFOLIO: portfolio.md
+  - PUBLICATIONS: publications.md
+  - BLOG:
+      - blog/index.md
