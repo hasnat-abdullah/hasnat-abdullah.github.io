@@ -16,7 +16,7 @@
 
 
 .md-tabs {
-    background: linear-gradient(90deg, rgba(74, 76, 179, 0.95) 34%, hsla(0, 34%, 71%, 0.95));
+    background: linear-gradient(90deg, rgba(49, 52, 158, 0.95) 34%, hsla(0, 23%, 56%, 0.95));
     font-weight: 600;
     border-top: 1px solid transparent; /* adjust thickness */
     border-image: linear-gradient(90deg, hsla(0, 34%, 71%, 0.95), rgba(74, 76, 179, 0.95)) 1;
@@ -31,7 +31,7 @@
     display: flex;
     align-items: center;
     padding: 2rem;
-    background: linear-gradient(90deg, rgba(74, 76, 179, 0.95) 34%, hsla(0, 34%, 71%, 0.95));
+    background: linear-gradient(90deg, rgba(49, 52, 158, 0.95) 34%, hsla(0, 23%, 56%, 0.95));
     border-radius: 20px;
     flex-wrap: wrap;
     gap: 2rem;
@@ -56,16 +56,24 @@
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 0.3rem;
+    color: white;
 }
 
 .profile-info h3 {
     font-weight: 500;
-    margin-bottom: 1rem;
+    margin-top: -.3rem;
+    margin-bottom: 1.7rem;
+}
+
+.profile-info-label {
+    font-weight: 700;
+    opacity: .5;
 }
 
 .profile-info p {
-    margin: 0.3rem 0;
+    margin: 0.6rem 0;
     font-family: 'Roboto Mono', monospace;
+
 }
 
 /* Social icons */
@@ -78,8 +86,7 @@
 
 /* Intro section */
 .intro-section {
-    padding: 2rem;
-    text-align: left;
+    text-align: justify;
 }
 
 .intro-section h2 {
@@ -99,19 +106,28 @@
     }
 }
 
-/* CV Button */
-.btn-cv {
+/*.social-icons {*/
+/*  margin-top: 1rem;*/
+/*}*/
+
+.social-icons a {
     display: inline-block;
-    margin-top: 1.2rem;
-    padding: 0.6rem 1.4rem;
-    background-color: #6b5bcd;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 999px;
-    font-weight: bold;
-    transition: background 0.3s;
+    margin-right: 1rem;
+    transition: transform 0.2s ease;
 }
 
-.btn-cv:hover {
-    background-color: #5846b9;
+.social-icons a:hover {
+    transform: scale(1.15);
+}
+
+.social-icons img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    filter: invert(100%);
+  opacity: 0.5;
+}
+.social-icons img:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
