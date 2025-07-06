@@ -1,1 +1,2 @@
 mkdocs_material==9.6.15
+mkdocs-rss-plugin==1.17.3
