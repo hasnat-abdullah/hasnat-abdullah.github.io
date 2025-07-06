@@ -1,0 +1,133 @@
+.md-header {
+    background: linear-gradient(90deg, rgba(74, 76, 179, 0.95) 34%, hsla(0, 34%, 71%, 0.95));
+}
+
+.md-header__title {
+    font-size: 1.4rem;
+}
+
+.md-header__topic:first-child {
+    font-weight: 600;
+}
+
+.md-header__button.md-logo img, .md-header__button.md-logo svg {
+    height: 1.4rem;
+}
+
+
+.md-tabs {
+    background: linear-gradient(90deg, rgba(49, 52, 158, 0.95) 34%, hsla(0, 23%, 56%, 0.95));
+    font-weight: 600;
+    border-top: 1px solid transparent; /* adjust thickness */
+    border-image: linear-gradient(90deg, hsla(0, 34%, 71%, 0.95), rgba(74, 76, 179, 0.95)) 1;
+}
+
+.md-tabs__link {
+    font-size: .8rem;
+}
+
+/* Gradient header card */
+.header-card {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    background: linear-gradient(90deg, rgba(49, 52, 158, 0.95) 34%, hsla(0, 23%, 56%, 0.95));
+    border-radius: 20px;
+    flex-wrap: wrap;
+    gap: 2rem;
+    color: #fff;
+}
+
+/* Profile image */
+.profile-img {
+    width: 180px;
+    height: 180px;
+    border-radius: 15px;
+    object-fit: cover;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Right side info block */
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    color: white;
+}
+
+.profile-info h3 {
+    font-weight: 500;
+    margin-top: -.3rem;
+    margin-bottom: 1.7rem;
+}
+
+.profile-info-label {
+    font-weight: 700;
+    opacity: .5;
+}
+
+.profile-info p {
+    margin: 0.6rem 0;
+    font-family: 'Roboto Mono', monospace;
+
+}
+
+/* Social icons */
+.social-icons a {
+    font-size: 1.5rem;
+    margin-right: 0.8rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Intro section */
+.intro-section {
+    text-align: justify;
+}
+
+.intro-section h2 {
+    font-size: 1.8rem;
+    color: #5e4b8b;
+    margin-bottom: 0.5rem;
+}
+
+.underscore {
+    color: #b66fdd;
+    animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/*.social-icons {*/
+/*  margin-top: 1rem;*/
+/*}*/
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.social-icons a:hover {
+    transform: scale(1.15);
+}
+
+.social-icons img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    filter: invert(100%);
+  opacity: 0.5;
+}
+.social-icons img:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
