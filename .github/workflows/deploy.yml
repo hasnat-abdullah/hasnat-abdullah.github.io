@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages (User Site)
 on:
   push:
     branches:
-      - main  # Or 'master' if that's your default
+      - master
 
 permissions:
   contents: write
