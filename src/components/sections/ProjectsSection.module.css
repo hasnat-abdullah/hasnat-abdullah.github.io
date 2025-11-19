@@ -1,0 +1,128 @@
+.projectsSection {
+  padding: 3rem 1.5rem;
+  background: var(--ifm-background-color);
+}
+
+.subheading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem;
+  color: var(--ifm-heading-color);
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.subheading::before {
+  content: '// ';
+  opacity: 0.5;
+}
+
+.featuredGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.projectCard {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 1.25rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-size: 0.875rem;
+}
+
+.projectCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--card-shadow);
+  border-color: var(--ifm-color-primary);
+  color: var(--terminal-accent);
+}
+
+.projectCard:hover .projectTitle {
+  color: var(--terminal-accent);
+}
+
+[data-theme='dark'] .projectCard:hover {
+  box-shadow: 0 0 16px var(--sci-fi-glow), 0 6px 12px var(--card-shadow);
+}
+
+.projectCard.featured {
+  border: 1px solid var(--card-border);
+  background: var(--card-background);
+}
+
+[data-theme='dark'] .projectCard.featured {
+  box-shadow: 0 0 16px var(--sci-fi-glow);
+}
+
+.projectTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--ifm-heading-color);
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.featured .projectTitle {
+  color: var(--ifm-color-primary);
+}
+
+.projectDescription {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ifm-color-emphasis-700);
+  flex-grow: 1;
+}
+
+.projectTech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.projectLinks {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: auto;
+}
+
+.projectLink {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.8rem;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.projectLink:hover {
+  text-decoration: underline;
+  transform: translateX(2px);
+}
+
+@media (max-width: 768px) {
+  .projectsSection {
+    padding: 2rem 1rem;
+  }
+  
+  .featuredGrid,
+  .projectsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .projectCard {
+    padding: 1rem;
+  }
+}
+

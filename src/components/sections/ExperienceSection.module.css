@@ -1,0 +1,155 @@
+.experienceSection {
+  padding: 3rem 1.5rem;
+  background: var(--ifm-background-surface-color);
+}
+
+.timeline {
+  position: relative;
+  max-width: 1000px;
+  margin: 1.5rem auto 0;
+  padding: 1rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--sci-fi-border);
+}
+
+[data-theme='dark'] .timeline::before {
+  background: linear-gradient(180deg, var(--terminal-muted), var(--terminal-muted));
+  opacity: 0.3;
+}
+
+.timelineItem {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+}
+
+.timelineMarker {
+  position: absolute;
+  left: -5px;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ifm-color-primary);
+  border: 2px solid var(--ifm-background-surface-color);
+  z-index: 1;
+}
+
+[data-theme='dark'] .timelineMarker {
+  box-shadow: 0 0 12px var(--sci-fi-glow);
+}
+
+.timelineContent {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 1.25rem;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.timelineContent:hover {
+  transform: translateX(4px);
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 24px var(--sci-fi-glow), 0 4px 16px var(--card-shadow);
+}
+
+
+.timelineHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.jobTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ifm-heading-color);
+  margin-bottom: 0;
+  margin-right: 0.5rem;
+  font-family: var(--ifm-font-family-monospace);
+  display: inline;
+}
+
+.company {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  margin-bottom: 0;
+  font-family: var(--ifm-font-family-monospace);
+  display: inline;
+}
+
+.timelineMeta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.period {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.location {
+  font-size: 0.75rem;
+  color: var(--ifm-color-emphasis-600);
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 0.75rem;
+}
+
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .experienceSection {
+    padding: 2rem 1rem;
+  }
+  
+  .timeline {
+    padding: 0.5rem 0;
+  }
+
+  .timelineItem {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .timelineHeader {
+    flex-direction: column;
+  }
+
+  .timelineMeta {
+    align-items: flex-start;
+  }
+
+  .timelineContent {
+    padding: 1rem;
+  }
+}
+

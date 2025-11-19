@@ -1,0 +1,712 @@
+/**
+ * Terminal Personal Website Theme
+ * Clean, minimal, with terminal/coder aesthetics
+ */
+
+@import url('./fonts.css');
+
+/* ============================================
+   LIGHT MODE (Sci-Fi Clean)
+   ============================================ */
+:root {
+  /* Primary Colors - Terminal Green Theme */
+  --ifm-color-primary: #00aa00;
+  --ifm-color-primary-dark: #009900;
+  --ifm-color-primary-darker: #008800;
+  --ifm-color-primary-darkest: #006600;
+  --ifm-color-primary-light: #00bb00;
+  --ifm-color-primary-lighter: #00cc00;
+  --ifm-color-primary-lightest: #00dd00;
+  
+  /* Background colors */
+  --ifm-background-color: #ffffff;
+  --ifm-background-surface-color: #f5f5f5;
+  
+  /* Text colors */
+  --ifm-font-color-base: #2d2d2d;
+  --ifm-heading-color: #1a1a1a;
+  
+  /* Terminal accent colors */
+  --terminal-accent: #00aa00;
+  --terminal-muted: #666666;
+  --sci-fi-border: #d0d0d0;
+  
+  /* Card and section styles */
+  --card-background: #ffffff;
+  --card-border: #e5e7eb;
+  --card-shadow: rgba(0, 0, 0, 0.05);
+  --navbar-shadow: rgba(0, 0, 0, 0.08);
+  
+  /* Code and terminal */
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 102, 204, 0.1);
+  
+  /* Typography - Roboto */
+  --ifm-font-family-base: 'Roboto', sans-serif;
+  --ifm-font-family-monospace: 'Roboto Mono', monospace;
+  --ifm-heading-font-family: var(--ifm-font-family-monospace);
+  --ifm-line-height-base: 1.5;
+  
+  /* Spacing - Compact */
+  --section-padding: 2.5rem 1.5rem;
+  --card-padding: 1.25rem;
+}
+
+/* ============================================
+   DARK MODE (Sci-Fi Neon)
+   ============================================ */
+[data-theme='dark'] {
+  /* Primary Colors - Soothing Terminal Green */
+  --ifm-color-primary: #33cc33;
+  --ifm-color-primary-dark: #2eb82e;
+  --ifm-color-primary-darker: #29a329;
+  --ifm-color-primary-darkest: #1f7a1f;
+  --ifm-color-primary-light: #47d147;
+  --ifm-color-primary-lighter: #5cd65c;
+  --ifm-color-primary-lightest: #70db70;
+  
+  /* Background colors - Soothing dark */
+  --ifm-background-color: #1a1a1a;
+  --ifm-background-surface-color: #222222;
+  
+  /* Text colors - Softer */
+  --ifm-font-color-base: #c0c0c0;
+  --ifm-heading-color: #e0e0e0;
+  
+  /* Terminal accent colors - Muted green */
+  --terminal-accent: #33cc33;
+  --terminal-muted: #808080;
+  --sci-fi-border: #333333;
+  
+  /* Card and section styles */
+  --card-background: #222222;
+  --card-border: #333333;
+  --card-shadow: rgba(51, 204, 51, 0.05);
+  --navbar-shadow: rgba(51, 204, 51, 0.07);
+  
+  /* Code highlighting */
+  --docusaurus-highlighted-code-line-bg: rgba(51, 204, 51, 0.1);
+  
+  /* Navbar and footer */
+  --ifm-navbar-background-color: rgba(26, 26, 26, 0.95);
+  --ifm-footer-background-color: #1a1a1a;
+}
+
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+* {
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: var(--ifm-font-family-base);
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+/* Compact spacing globally */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+p {
+  margin-bottom: 0.75rem;
+}
+
+/* ============================================
+   NAVBAR CUSTOMIZATION
+   ============================================ */
+.navbar {
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--sci-fi-border);
+  box-shadow: 0 2px 8px var(--navbar-shadow);
+  padding: 0.5rem 0;
+}
+
+[data-theme='dark'] .navbar {
+  box-shadow: 0 2px 8px var(--navbar-shadow);
+}
+.navbar__inner {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+.navbar__title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  font-family: var(--ifm-font-family-monospace);
+  color: var(--terminal-accent);
+}
+
+.navbar__item {
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.navbar__link {
+  font-family: var(--ifm-font-family-monospace);
+  font-weight: 700;
+  color: var(--ifm-font-color-base);
+}
+
+.navbar__link:hover {
+  color: var(--ifm-color-primary);
+}
+
+/* Mobile menu toggle - only show on mobile */
+.navbar__toggle {
+  color: var(--ifm-font-color-base);
+}
+
+@media (max-width: 996px) {
+  .navbar__toggle {
+    display: flex !important;
+  }
+}
+
+/* Mobile menu sidebar - make it overlay properly */
+.navbar-sidebar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 9999 !important;
+}
+
+.navbar-sidebar__backdrop {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+
+.navbar-sidebar__brand {
+  background: var(--ifm-navbar-background-color);
+}
+
+.navbar-sidebar__items {
+  height: calc(100% - var(--ifm-navbar-height)) !important;
+}
+
+/* Remove skip to content link */
+.skipToContent_fXgn {
+  display: none !important;
+}
+
+/* ============================================
+   SECTION STYLES - COMPACT
+   ============================================ */
+.section {
+  padding: var(--section-padding);
+  min-height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-content {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--terminal-accent);
+  position: relative;
+  display: inline-block;
+  font-family: var(--ifm-font-family-monospace);
+  letter-spacing: 0;
+}
+
+/* Terminal-style section headers */
+.section-title::before {
+  content: '#';
+  color: var(--terminal-accent);
+  margin-right: 0.5rem;
+  opacity: 0.7;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--ifm-color-emphasis-600);
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+/* ============================================
+   CARD COMPONENTS
+   ============================================ */
+.card {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: var(--card-padding);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-size: 0.875rem;
+}
+
+/* Terminal-style card headers */
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--sci-fi-border);
+  opacity: 0.5;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--card-shadow);
+  border-color: var(--terminal-accent);
+}
+
+[data-theme='dark'] .card:hover {
+  box-shadow: 0 2px 8px rgba(51, 204, 51, 0.15);
+  border-color: var(--terminal-accent);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sci-fi-accent-1), var(--sci-fi-accent-2), var(--sci-fi-accent-3));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* ============================================
+   GRID LAYOUTS - COMPACT
+   ============================================ */
+.grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.button-primary {
+  background: linear-gradient(135deg, var(--sci-fi-accent-1), var(--sci-fi-accent-2));
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px var(--sci-fi-glow);
+  color: white;
+  text-decoration: none;
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--ifm-color-primary);
+  border: 2px solid var(--ifm-color-primary);
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.button-secondary:hover {
+  background: var(--ifm-color-primary);
+  color: white;
+  text-decoration: none;
+}
+
+/* ============================================
+   GLOWING EFFECTS
+   ============================================ */
+.glow-text {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px var(--sci-fi-glow);
+  }
+  to {
+    text-shadow: 0 0 20px var(--sci-fi-glow), 0 0 30px var(--sci-fi-glow);
+  }
+}
+
+.glow-border {
+  position: relative;
+}
+
+.glow-border::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(45deg, var(--sci-fi-accent-1), var(--sci-fi-accent-2), var(--sci-fi-accent-3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-border:hover::after {
+  opacity: 1;
+}
+
+/* ============================================
+   TERMINAL EFFECT
+   ============================================ */
+.terminal-text {
+  font-family: var(--ifm-font-family-monospace);
+  color: var(--sci-fi-accent-1);
+}
+
+[data-theme='dark'] .terminal-text {
+  color: var(--sci-fi-accent-2);
+}
+
+.typewriter {
+  overflow: hidden;
+  border-right: 0.15em solid var(--ifm-color-primary);
+  white-space: nowrap;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  display: inline-block;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--ifm-color-primary);
+  }
+}
+
+/* ============================================
+   TIMELINE (for Experience section)
+   ============================================ */
+.timeline {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: var(--sci-fi-border);
+}
+
+[data-theme='dark'] .timeline::before {
+  background: var(--terminal-muted);
+  opacity: 0.3;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+/* ============================================
+   BADGES
+   ============================================ */
+.badge {
+  display: inline-block;
+  padding: 0.3rem 0.3rem;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  margin: 0.10rem;
+  transition: all 0.3s ease;
+  font-family: var(--ifm-font-family-monospace);
+  letter-spacing: -0.01em;
+  color: var(--ifm-font-color-base);
+}
+
+/* Terminal-style badges */
+.badge::before {
+  content: '[';
+  opacity: 0.5;
+  color: var(--ifm-font-color-base);
+}
+
+.badge::after {
+  content: ']';
+  opacity: 0.5;
+  color: var(--ifm-font-color-base);
+}
+
+.badge:hover {
+  border-color: var(--terminal-accent);
+  transform: translateY(-1px);
+  color: var(--terminal-accent);
+}
+
+[data-theme='dark'] .badge:hover {
+  background: rgba(51, 204, 51, 0.1);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 996px) {
+  .section {
+    padding: 2rem 1rem;
+    min-height: auto;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .grid {
+    gap: 1rem;
+  }
+  
+  .timeline::before {
+    left: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 13px;
+  }
+  
+  .section-title {
+    font-size: 1.25rem;
+  }
+  
+  .section-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================
+   FOOTER CUSTOMIZATION
+   ============================================ */
+.footer {
+  border-top: 1px solid var(--sci-fi-border);
+  padding: 1rem 0;
+}
+
+[data-theme='dark'] .footer {
+  box-shadow: 0 -2px 12px var(--card-shadow);
+}
+
+/* ============================================
+   CODING THEME ENHANCEMENTS
+   ============================================ */
+
+/* Matrix-style background effect (subtle) */
+@keyframes matrix-rain {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* Line numbers effect for sections */
+.section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--sci-fi-border);
+  opacity: 0.2;
+}
+
+/* Code-style links */
+a:not(.button-primary):not(.button-secondary) {
+  font-family: var(--ifm-font-family-monospace);
+  text-decoration: none;
+  position: relative;
+}
+
+a:not(.button-primary):not(.button-secondary):hover {
+  text-decoration: none;
+}
+
+a:not(.button-primary):not(.button-secondary)::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+a:not(.button-primary):not(.button-secondary):hover::after {
+  transform: scaleX(1);
+}
+
+/* Terminal cursor effect */
+.cursor-blink {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--ifm-color-primary);
+  margin-left: 4px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Scrollbar styling (Webkit) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ifm-background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sci-fi-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: var(--terminal-accent);
+}
+
+/* Selection styling */
+::selection {
+  background: var(--terminal-accent);
+  color: white;
+}
+
+[data-theme='dark'] ::selection {
+  background: var(--terminal-accent);
+  color: var(--ifm-background-color);
+}
+
+.docusaurus-mt-lg {
+  margin-top: 2rem !important;
+}

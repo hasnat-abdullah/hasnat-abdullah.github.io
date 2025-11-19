@@ -1,0 +1,257 @@
+.heroAboutSection {
+  padding: 3rem 1.5rem;
+  background: var(--ifm-background-color);
+  border-bottom: 1px solid var(--sci-fi-border);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mainInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.header {
+  border-bottom: 1px solid var(--sci-fi-border);
+  padding-bottom: 1rem;
+}
+
+.name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  font-family: var(--ifm-font-family-monospace);
+  color: var(--terminal-accent);
+}
+
+.prompt {
+  color: var(--terminal-accent);
+  margin-right: 0.5rem;
+}
+
+.title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ifm-heading-color);
+  margin-bottom: 0.25rem;
+  font-family: var(--ifm-font-family-monospace);
+  opacity: 0.9;
+}
+
+.tagline {
+  font-size: 0.95rem;
+  color: var(--ifm-color-emphasis-600);
+  margin-bottom: 0;
+  font-family: var(--ifm-font-family-monospace);
+  opacity: 0.8;
+}
+
+.bioSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bio {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ifm-font-color-base);
+  margin: 0;
+}
+
+.infoActions {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.85rem;
+  background: var(--ifm-background-surface-color);
+  border-left: 2px solid var(--terminal-accent);
+  font-size: 0.9rem;
+  font-family: var(--ifm-font-family-monospace);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+[data-theme='dark'] .info {
+  background: var(--card-background);
+}
+.infoItem {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.label {
+  color: var(--terminal-accent);
+  font-weight: 600;
+  min-width: 80px;
+}
+
+.infoItem a {
+  color: var(--ifm-color-primary-darker);
+  text-decoration: none;
+}
+
+.infoItem a:hover {
+  text-decoration: underline;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ifm-color-primary);
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+
+.socialLink:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.socialLink svg {
+  width: 18px;
+  height: 18px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.avatarWrapper {
+  width: 140px;
+  height: 140px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid var(--terminal-accent);
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .avatarWrapper {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+@media (max-width: 996px) {
+  .content {
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+  }
+
+  .avatarWrapper {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .header {
+    text-align: left;
+  }
+  
+  .bioSection {
+    text-align: left;
+  }
+  
+  .infoActions {
+    flex-direction: column;
+  }
+  
+  .info {
+    min-width: 100%;
+  }
+  
+  .actions {
+    flex-direction: row;
+    align-self: flex-start;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroAboutSection {
+    padding: 2rem 1rem 1.5rem;
+  }
+  
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .avatarWrapper {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    text-align: center;
+  }
+
+  .name {
+    font-size: 1.6rem;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .tagline {
+    font-size: 0.85rem;
+  }
+  
+  .info {
+    font-size: 0.85rem;
+    min-width: 100%;
+  }
+  
+  .actions {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .actions a {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+
