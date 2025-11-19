@@ -63,16 +63,6 @@ const config: Config = {
     ],
   ],
 
-  plugins: [
-    [
-      '@docusaurus/plugin-sitemap',
-      {
-        changefreq: 'weekly',
-        priority: 0.5
-      },
-    ],
-  ],
-
   themeConfig: {
     // Replace with your project's social card
     image: 'img/pic.jpeg',
