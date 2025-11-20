@@ -11,8 +11,10 @@ export default function ResearchSection(): JSX.Element {
                     <div className={styles.researchGrid}>
                         {research.map((item, idx) => (
                             <div key={idx} className={styles.researchCard}>
-                                <h4 className={styles.researchTitle}>{item.title}</h4>
-                                <p className={styles.researchDate}>{item.date}</p>
+                                <div className={styles.titleContainer}>
+                                    <h4 className={styles.researchTitle}>{item.title}</h4>
+                                    <p className={styles.researchDate}>{item.date}</p>
+                                </div>
                                 {item.description && (
                                     <p className={styles.researchDescription}>{item.description}</p>
                                 )}
