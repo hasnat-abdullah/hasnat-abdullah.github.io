@@ -13,10 +13,10 @@ export interface Profile {
 export const profile: Profile = {
   name: 'Abu Hasnat Abdullah',
   title: 'Senior Software Engineer',
-  tagline: 'Building Scalable Systems | Backend | AI | ML',
-  bio: `I'm a Senior Software Engineer with extensive experience in building scalable backend systems, 
-  working with AI/ML technologies, and solving complex technical challenges. I'm passionate about 
-  clean code, system architecture, and continuous learning.`,
+  tagline: 'ML | LLM | Building Scalable Systems | Backend',
+  bio: `Experienced Senior Software Engineer adept in project leadership, AI, and web development. Proven track record of
+driving complex projects for top-tier companies, supported by extensive academic achievements and interested in
+Behavioral Economics. Elevate your team to unprecedented levels of innovation and success with my expertise.`,
   email: 'abdullah.2010bd@gmail.com',
   location: 'Dhaka, Bangladesh',
   avatar: '/img/pic.jpeg',
