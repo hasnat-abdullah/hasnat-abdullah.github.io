@@ -17,36 +17,36 @@
   --ifm-color-primary-light: #00bb00;
   --ifm-color-primary-lighter: #00cc00;
   --ifm-color-primary-lightest: #00dd00;
-  
+
   /* Background colors */
   --ifm-background-color: #ffffff;
   --ifm-background-surface-color: #f5f5f5;
-  
+
   /* Text colors */
   --ifm-font-color-base: #2d2d2d;
   --ifm-heading-color: #1a1a1a;
-  
+
   /* Terminal accent colors */
   --terminal-accent: #00aa00;
   --terminal-muted: #666666;
   --sci-fi-border: #d0d0d0;
-  
+
   /* Card and section styles */
   --card-background: #ffffff;
   --card-border: #e5e7eb;
   --card-shadow: rgba(0, 0, 0, 0.05);
   --navbar-shadow: rgba(0, 0, 0, 0.08);
-  
+
   /* Code and terminal */
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 102, 204, 0.1);
-  
+
   /* Typography - Roboto */
   --ifm-font-family-base: 'Roboto', sans-serif;
   --ifm-font-family-monospace: 'Roboto Mono', monospace;
   --ifm-heading-font-family: var(--ifm-font-family-monospace);
   --ifm-line-height-base: 1.5;
-  
+
   /* Spacing - Compact */
   --section-padding: 2.5rem 1.5rem;
   --card-padding: 1.25rem;
@@ -64,29 +64,29 @@
   --ifm-color-primary-light: #47d147;
   --ifm-color-primary-lighter: #5cd65c;
   --ifm-color-primary-lightest: #70db70;
-  
+
   /* Background colors - Soothing dark */
   --ifm-background-color: #1a1a1a;
   --ifm-background-surface-color: #222222;
-  
+
   /* Text colors - Softer */
   --ifm-font-color-base: #c0c0c0;
   --ifm-heading-color: #e0e0e0;
-  
+
   /* Terminal accent colors - Muted green */
   --terminal-accent: #33cc33;
   --terminal-muted: #808080;
   --sci-fi-border: #333333;
-  
+
   /* Card and section styles */
   --card-background: #222222;
   --card-border: #333333;
   --card-shadow: rgba(51, 204, 51, 0.05);
   --navbar-shadow: rgba(51, 204, 51, 0.07);
-  
+
   /* Code highlighting */
   --docusaurus-highlighted-code-line-bg: rgba(51, 204, 51, 0.1);
-  
+
   /* Navbar and footer */
   --ifm-navbar-background-color: rgba(26, 26, 26, 0.95);
   --ifm-footer-background-color: #1a1a1a;
@@ -111,7 +111,12 @@ body {
 }
 
 /* Compact spacing globally */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-bottom: 0.75rem;
   line-height: 1.3;
 }
@@ -133,6 +138,7 @@ p {
 [data-theme='dark'] .navbar {
   box-shadow: 0 2px 8px var(--navbar-shadow);
 }
+
 .navbar__inner {
   max-width: 1200px !important;
   margin: 0 auto !important;
@@ -351,8 +357,8 @@ p {
 .button-secondary {
   background: transparent;
   color: var(--ifm-color-primary);
-  border: 2px solid var(--ifm-color-primary);
-  padding: 0.75rem 2rem;
+  border: 1px solid var(--ifm-color-primary);
+  padding: 0.5rem 1rem;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
@@ -363,7 +369,7 @@ p {
 
 .button-secondary:hover {
   background: var(--ifm-color-primary);
-  color: white;
+  color: black;
   text-decoration: none;
 }
 
@@ -378,6 +384,7 @@ p {
   from {
     text-shadow: 0 0 10px var(--sci-fi-glow);
   }
+
   to {
     text-shadow: 0 0 20px var(--sci-fi-glow), 0 0 30px var(--sci-fi-glow);
   }
@@ -429,16 +436,19 @@ p {
   from {
     width: 0;
   }
+
   to {
     width: 100%;
   }
 }
 
 @keyframes blink-caret {
+
   from,
   to {
     border-color: transparent;
   }
+
   50% {
     border-color: var(--ifm-color-primary);
   }
@@ -521,15 +531,15 @@ p {
     padding: 2rem 1rem;
     min-height: auto;
   }
-  
+
   .section-title {
     font-size: 1.5rem;
   }
-  
+
   .grid {
     gap: 1rem;
   }
-  
+
   .timeline::before {
     left: 1rem;
   }
@@ -539,21 +549,21 @@ p {
   body {
     font-size: 13px;
   }
-  
+
   .section-title {
     font-size: 1.25rem;
   }
-  
+
   .section-subtitle {
     font-size: 0.8rem;
   }
-  
+
   .grid-2,
   .grid-3,
   .grid-4 {
     grid-template-columns: 1fr;
   }
-  
+
   .card {
     padding: 1rem;
   }
@@ -563,6 +573,7 @@ p {
    ACCESSIBILITY
    ============================================ */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -602,12 +613,15 @@ button:focus-visible {
     transform: translateY(-100%);
     opacity: 0;
   }
+
   10% {
     opacity: 0.5;
   }
+
   90% {
     opacity: 0.5;
   }
+
   100% {
     transform: translateY(100vh);
     opacity: 0;
@@ -665,10 +679,14 @@ a:not(.button-primary):not(.button-secondary):hover::after {
 }
 
 @keyframes blink {
-  0%, 49% {
+
+  0%,
+  49% {
     opacity: 1;
   }
-  50%, 100% {
+
+  50%,
+  100% {
     opacity: 0;
   }
 }

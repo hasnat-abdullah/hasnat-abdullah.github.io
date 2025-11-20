@@ -1,4 +1,4 @@
-import type {ReactNode} from 'react';
+import type { ReactNode } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 
@@ -7,10 +7,11 @@ import SkillsSection from '@site/src/components/sections/SkillsSection';
 import ExperienceSection from '@site/src/components/sections/ExperienceSection';
 import ProjectsSection from '@site/src/components/sections/ProjectsSection';
 import CertificationsSection from '@site/src/components/sections/CertificationsSection';
+import ResearchSection from '@site/src/components/sections/ResearchSection';
 import BlogSection from '@site/src/components/sections/BlogSection';
 
 export default function Home(): ReactNode {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
       title={siteConfig.title}
@@ -21,6 +22,7 @@ export default function Home(): ReactNode {
         <ExperienceSection />
         <ProjectsSection />
         <CertificationsSection />
+        <ResearchSection />
         <BlogSection />
       </main>
     </Layout>

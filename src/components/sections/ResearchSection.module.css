@@ -1,0 +1,94 @@
+.researchSection {
+  padding: 3rem 1.5rem;
+  background: var(--ifm-background-color);
+}
+
+.researchGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.researchCard {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.researchCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px var(--card-shadow);
+  border-color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .researchCard:hover {
+  box-shadow: 0 0 20px var(--sci-fi-glow), 0 8px 16px var(--card-shadow);
+}
+
+.researchTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ifm-heading-color);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.researchConference {
+  font-size: 0.9rem;
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.researchDate {
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-600);
+  margin-bottom: 1rem;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.researchDescription {
+  font-size: 0.9rem;
+  color: var(--ifm-color-content);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.researchLink {
+  margin-top: auto;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  font-family: var(--ifm-font-family-monospace);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.researchLink:hover {
+  text-decoration: underline;
+  transform: translateX(2px);
+}
+
+@media (max-width: 768px) {
+  .researchSection {
+    padding: 2rem 1rem;
+  }
+
+  .researchGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .researchCard {
+    padding: 1.25rem;
+  }
+}

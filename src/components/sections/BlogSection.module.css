@@ -1,6 +1,6 @@
 .blogSection {
   padding: 3rem 1.5rem;
-  background: var(--ifm-background-color);
+  background: var(--ifm-background-surface-color);
 }
 
 .blogGrid {
@@ -133,7 +133,7 @@
   .blogSection {
     padding: 2rem 1rem;
   }
-  
+
   .blogGrid {
     grid-template-columns: 1fr;
   }
@@ -142,4 +142,3 @@
     padding: 1rem;
   }
 }
-

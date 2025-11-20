@@ -49,9 +49,6 @@
   color: var(--terminal-accent);
 }
 
-.projectCard:hover .projectTitle {
-  color: var(--terminal-accent);
-}
 
 [data-theme='dark'] .projectCard:hover {
   box-shadow: 0 0 16px var(--sci-fi-glow), 0 6px 12px var(--card-shadow);
@@ -70,7 +67,7 @@
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
-  color: var(--ifm-heading-color);
+  color: var(--terminal-accent);
   font-family: var(--ifm-font-family-monospace);
 }
 
@@ -115,7 +112,7 @@
   .projectsSection {
     padding: 2rem 1rem;
   }
-  
+
   .featuredGrid,
   .projectsGrid {
     grid-template-columns: 1fr;
@@ -125,4 +122,3 @@
     padding: 1rem;
   }
 }
-
