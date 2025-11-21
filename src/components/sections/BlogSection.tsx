@@ -21,26 +21,38 @@ export default function BlogSection(): React.JSX.Element {
   const POSTS_TO_SHOW = 4;
 
   useEffect(() => {
-    // Load latest 2 blog posts
+    // Load latest blog posts
     const loadPosts = async () => {
       try {
-        // Try to load real blog posts from Docusaurus
-        let blogModule: any = null;
+        // Try to load real blog posts from Docusaurus blog archive
+        let blogArchive: any = null;
         try {
           // @ts-ignore - Generated file, may not exist during dev
-          blogModule = await import('@generated/docusaurus-plugin-content-blog/default/blog-post-list-prop-default.json');
+          // Import all available blog archive files
+          const archiveFiles = [
+            'blog-archive-f05.json',
+            // Add more potential archive file names if needed
+          ];
+
+          for (const fileName of archiveFiles) {
+            try {
+              blogArchive = await import(`@generated/docusaurus-plugin-content-blog/default/p/${fileName}`);
+              break;
+            } catch (e) {
+              // Try next file
+            }
+          }
         } catch (e) {
           // Module not available yet, will use fallback
         }
 
-        if (blogModule && blogModule.items && Array.isArray(blogModule.items) && blogModule.items.length > 0) {
+        if (blogArchive && blogArchive.archive && blogArchive.archive.blogPosts && Array.isArray(blogArchive.archive.blogPosts) && blogArchive.archive.blogPosts.length > 0) {
           // Map Docusaurus blog posts to our format
-          const mappedPosts = blogModule.items
+          const mappedPosts = blogArchive.archive.blogPosts
             .slice(0, POSTS_TO_SHOW)
             .map((item: any) => {
-              const postDate = item.content?.metadata?.date || item.date || new Date().toISOString();
-              const formattedDate = item.content?.metadata?.formattedDate ||
-                item.formattedDate ||
+              const postDate = item.metadata?.date || new Date().toISOString();
+              const formattedDate = item.metadata?.formattedDate ||
                 new Date(postDate).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
@@ -48,15 +60,14 @@ export default function BlogSection(): React.JSX.Element {
                 });
 
               return {
-                id: item.id || item.content?.metadata?.permalink || Math.random().toString(),
+                id: item.id || item.metadata?.permalink || Math.random().toString(),
                 metadata: {
-                  permalink: item.content?.metadata?.permalink || item.permalink || '/blog',
-                  title: item.content?.metadata?.title || item.title || 'Untitled',
-                  description: item.content?.metadata?.description || item.description || '',
+                  permalink: item.metadata?.permalink || '/blog',
+                  title: item.metadata?.title || 'Untitled',
+                  description: item.metadata?.description || '',
                   date: postDate,
                   formattedDate: formattedDate,
-                  tags: item.content?.metadata?.tags || item.tags || [],
-                  readingTime: item.content?.metadata?.readingTime || item.readingTime || 1,
+                  readingTime: item.metadata?.readingTime || 1,
                 }
               };
             })
@@ -120,15 +131,6 @@ export default function BlogSection(): React.JSX.Element {
                       <p className={styles.blogDescription}>
                         {post.metadata.description}
                       </p>
-                      {post.metadata.tags && post.metadata.tags.length > 0 && (
-                        <div className={styles.blogTags}>
-                          {post.metadata.tags.map((tag, idx) => (
-                            <span key={idx} className="badge">
-                              {tag.label}
-                            </span>
-                          ))}
-                        </div>
-                      )}
                     </Link>
                   );
                 })}

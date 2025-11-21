@@ -62,7 +62,7 @@
 }
 
 .projectTitle {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
   color: var(--terminal-accent);
@@ -74,7 +74,7 @@
 }
 
 .projectDescription {
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--ifm-color-emphasis-700);
   flex-grow: 1;
@@ -152,7 +152,7 @@
 .otherProjectTitle {
   font-family: var(--ifm-font-family-monospace);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1 rem;
   color: var(--terminal-accent);
   flex-shrink: 0;
 }

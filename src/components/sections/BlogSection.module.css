@@ -55,7 +55,7 @@
 }
 
 .blogTitle {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
   color: var(--ifm-heading-color);
@@ -64,11 +64,12 @@
 }
 
 .blogDescription {
-  font-size: 0.85rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--ifm-color-emphasis-700);
   margin-bottom: 0.5rem;
   flex-grow: 1;
+  font-family: var(--ifm-font-family-base);
 }
 
 .blogTags {

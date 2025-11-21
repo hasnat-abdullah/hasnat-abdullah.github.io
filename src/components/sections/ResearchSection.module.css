@@ -40,7 +40,7 @@
 }
 
 .researchTitle {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--ifm-heading-color);
   margin-bottom: 0;
@@ -64,7 +64,7 @@
 }
 
 .researchDescription {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--ifm-color-content);
   margin-bottom: 0rem;
   line-height: 1.5;
