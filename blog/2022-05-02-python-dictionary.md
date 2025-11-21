@@ -2,6 +2,7 @@
 slug: python-dictionary
 title: Mastering Python Dictionaries, Key to Efficiency
 tags: [ Programming ]
+date: 2022-05-02
 ---
 
 The special thing about dictionaries is the way they are implemented. Hash-table-like structure makes it easy to check

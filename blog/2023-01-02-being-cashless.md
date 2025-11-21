@@ -2,6 +2,7 @@
 slug: being-cashless
 title: Being cashless doesn't make you bankrupt, does it?
 tags: [Behavioral Science]
+date: 2023-01-02
 ---
 With many advantages and rewards, credit cards, MFS can be a financially sound decision for all of your purchases \- but don’t totally rule out debit cards, and cash just yet. Though the world is pushing us to cashless transactions, should we?
 <!-- truncate -->

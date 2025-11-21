@@ -2,6 +2,7 @@
 slug: monkey-management
 title: Monkey Management
 tags: [management]
+date: 2023-04-05
 ---
 *“Let me take a look at that and get back to you”*\- this single sentence can ruin a manager’s life. How? After saying this sentence, other’s monkey(task) is now assigned to your shoulder and from now on it's your responsibility. Already lot’s of on your plate and taking other’s monkey on your shoulder will become a burden. So how can we smartly handle this situation?
 <!-- truncate -->

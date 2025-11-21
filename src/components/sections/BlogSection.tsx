@@ -32,32 +32,43 @@ export default function BlogSection(): React.JSX.Element {
         } catch (e) {
           // Module not available yet, will use fallback
         }
-        
+
         if (blogModule && blogModule.items && Array.isArray(blogModule.items) && blogModule.items.length > 0) {
           // Map Docusaurus blog posts to our format
           const mappedPosts = blogModule.items
             .slice(0, POSTS_TO_SHOW)
-            .map((item: any) => ({
-              id: item.id || item.content?.metadata?.permalink || Math.random().toString(),
-              metadata: {
-                permalink: item.content?.metadata?.permalink || item.permalink || '/blog',
-                title: item.content?.metadata?.title || item.title || 'Untitled',
-                description: item.content?.metadata?.description || item.description || '',
-                date: item.content?.metadata?.date || item.date || new Date().toISOString(),
-                formattedDate: item.content?.metadata?.formattedDate || item.formattedDate || new Date().toLocaleDateString(),
-                tags: item.content?.metadata?.tags || item.tags || [],
-                readingTime: item.content?.metadata?.readingTime || item.readingTime || 1,
-              }
-            }))
+            .map((item: any) => {
+              const postDate = item.content?.metadata?.date || item.date || new Date().toISOString();
+              const formattedDate = item.content?.metadata?.formattedDate ||
+                item.formattedDate ||
+                new Date(postDate).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                });
+
+              return {
+                id: item.id || item.content?.metadata?.permalink || Math.random().toString(),
+                metadata: {
+                  permalink: item.content?.metadata?.permalink || item.permalink || '/blog',
+                  title: item.content?.metadata?.title || item.title || 'Untitled',
+                  description: item.content?.metadata?.description || item.description || '',
+                  date: postDate,
+                  formattedDate: formattedDate,
+                  tags: item.content?.metadata?.tags || item.tags || [],
+                  readingTime: item.content?.metadata?.readingTime || item.readingTime || 1,
+                }
+              };
+            })
             .filter((post: BlogPost) => post.metadata.permalink); // Filter out invalid posts
-          
+
           if (mappedPosts.length > 0) {
             setPosts(mappedPosts);
             setLoading(false);
             return;
           }
         }
-        
+
         // If no posts loaded, set empty array (no fallback mock data)
         setPosts([]);
         setLoading(false);
@@ -90,7 +101,7 @@ export default function BlogSection(): React.JSX.Element {
                   if (!post || !post.metadata || !post.metadata.permalink) {
                     return null;
                   }
-                  
+
                   return (
                     <Link
                       key={post.id}
