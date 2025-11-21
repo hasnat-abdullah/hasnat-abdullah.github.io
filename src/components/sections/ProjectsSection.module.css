@@ -1,5 +1,5 @@
 .projectsSection {
-  padding: 3rem 1.5rem;
+  padding: 2rem 1.5rem;
   background: var(--ifm-background-color);
 }
 
@@ -16,11 +16,8 @@
   opacity: 0.5;
 }
 
-.featuredGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
+.subheading:first-of-type {
+  margin-top: 0;
 }
 
 .projectsGrid {
@@ -28,6 +25,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-top: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .projectCard {
@@ -108,17 +106,87 @@
   transform: translateX(2px);
 }
 
+/* Other Projects Compact List */
+.otherProjectsCard {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.otherProjectsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.otherProjectItem {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--card-border);
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.otherProjectItem:last-child {
+  border-bottom: none;
+}
+
+.otherProjectItem::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--ifm-color-primary);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.projectInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.otherProjectTitle {
+  font-family: var(--ifm-font-family-monospace);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--terminal-accent);
+  flex-shrink: 0;
+}
+
+.otherProjectTech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+
 @media (max-width: 768px) {
   .projectsSection {
     padding: 2rem 1rem;
   }
 
-  .featuredGrid,
   .projectsGrid {
     grid-template-columns: 1fr;
   }
 
   .projectCard {
+    padding: 1rem;
+  }
+
+  .projectInfo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .otherProjectTech {
+    margin-left: 0;
+  }
+
+  .otherProjectsCard {
     padding: 1rem;
   }
 }

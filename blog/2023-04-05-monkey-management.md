@@ -1,7 +1,10 @@
-# Monkey Management
-
+---
+slug: monkey-management
+title: Monkey Management
+tags: [management]
+---
 *“Let me take a look at that and get back to you”*\- this single sentence can ruin a manager’s life. How? After saying this sentence, other’s monkey(task) is now assigned to your shoulder and from now on it's your responsibility. Already lot’s of on your plate and taking other’s monkey on your shoulder will become a burden. So how can we smartly handle this situation?
-
+<!-- truncate -->
 # What is Monkey Management?
 
 Monkey management is to help your staff manage their own monkeys by not actually taking them on yourself. Metaphorically, The ‘monkey’ refers to the next stage in any given task or problem. The article “[Who’s Got the Monkey?](https://hbr.org/1999/11/management-time-whos-got-the-monkey)” by William Oncken Jr and Donald L. Wass (Harvard Business Review, 1974\) describes a scenario where a manager takes on the unsolved problems of employees, allowing them to delegate upwards and facilitating the “monkey” to jump on to his back. This results in an increased workload for the manager and a failure to develop the potential of his staff.

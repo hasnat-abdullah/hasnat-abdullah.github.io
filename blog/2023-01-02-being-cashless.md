@@ -1,7 +1,10 @@
-# Being cashless doesn't make you bankrupt, does it?
-
+---
+slug: being-cashless
+title: Being cashless doesn't make you bankrupt, does it?
+tags: [Behavioral Science]
+---
 With many advantages and rewards, credit cards, MFS can be a financially sound decision for all of your purchases \- but don’t totally rule out debit cards, and cash just yet. Though the world is pushing us to cashless transactions, should we?
-
+<!-- truncate -->
 ## Does the payment method matter?
 
 Yes, it matters. The consumption rate of a product or service has a direct relation to how you pay for that product or service. The biggest effect of changing away from cash is the fact that metering, in a mental accounting sense, becomes difficult.

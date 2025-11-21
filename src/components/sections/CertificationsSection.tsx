@@ -12,8 +12,10 @@ export default function CertificationsSection(): JSX.Element {
             {certifications.map((cert, idx) => (
               <div key={idx} className={styles.certCard}>
                 <h4 className={styles.certTitle}>{cert.title}</h4>
-                <p className={styles.certIssuer}>{cert.issuer}</p>
-                <p className={styles.certDate}>{cert.date}</p>
+                <div className={styles.certMeta}>
+                  <p className={styles.certIssuer}>{cert.issuer}</p>
+                  <p className={styles.certDate}>{cert.date}</p>
+                </div>
                 {cert.url && (
                   <a
                     href={cert.url}

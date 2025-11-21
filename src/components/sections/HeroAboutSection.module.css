@@ -1,5 +1,5 @@
 .heroAboutSection {
-  padding: 3rem 1.5rem;
+  padding: 2rem 1.5rem;
   background: var(--ifm-background-color);
   border-bottom: 1px solid var(--sci-fi-border);
 }
@@ -62,7 +62,7 @@
 }
 
 .bio {
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.6;
   color: var(--ifm-font-color-base);
   margin: 0;
@@ -82,7 +82,7 @@
   padding: 0.85rem;
   background: var(--ifm-background-surface-color);
   border-left: 2px solid var(--terminal-accent);
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-family: var(--ifm-font-family-monospace);
   flex: 1 1 auto;
   min-width: 0;
@@ -91,9 +91,10 @@
 [data-theme='dark'] .info {
   background: var(--card-background);
 }
+
 .infoItem {
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -179,23 +180,23 @@
     width: 110px;
     height: 110px;
   }
-  
+
   .header {
     text-align: left;
   }
-  
+
   .bioSection {
     text-align: left;
   }
-  
+
   .infoActions {
     flex-direction: column;
   }
-  
+
   .info {
     min-width: 100%;
   }
-  
+
   .actions {
     flex-direction: row;
     align-self: flex-start;
@@ -207,7 +208,7 @@
   .heroAboutSection {
     padding: 2rem 1rem 1.5rem;
   }
-  
+
   .content {
     grid-template-columns: 1fr;
   }
@@ -217,7 +218,7 @@
     height: 100px;
     margin: 0 auto;
   }
-  
+
   .header {
     text-align: center;
   }
@@ -233,18 +234,18 @@
   .tagline {
     font-size: 0.85rem;
   }
-  
+
   .info {
     font-size: 0.85rem;
     min-width: 100%;
   }
-  
+
   .actions {
     width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
   }
-  
+
   .actions a {
     flex: 1 1 auto;
     min-width: 0;
@@ -254,4 +255,3 @@
     white-space: nowrap;
   }
 }
-

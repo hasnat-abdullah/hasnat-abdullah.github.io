@@ -1,5 +1,5 @@
 .experienceSection {
-  padding: 3rem 1.5rem;
+  padding: 2rem 1.5rem;
   background: var(--ifm-background-surface-color);
 }
 
@@ -28,7 +28,7 @@
 .timelineItem {
   position: relative;
   padding-left: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .timelineMarker {
@@ -100,20 +100,20 @@
 }
 
 .period {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--ifm-color-emphasis-700);
   font-family: var(--ifm-font-family-monospace);
 }
 
 .location {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--ifm-color-emphasis-600);
   font-family: var(--ifm-font-family-monospace);
 }
 
 .description {
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--ifm-color-emphasis-700);
   margin-bottom: 0.75rem;
@@ -130,7 +130,7 @@
   .experienceSection {
     padding: 2rem 1rem;
   }
-  
+
   .timeline {
     padding: 0.5rem 0;
   }
@@ -152,4 +152,3 @@
     padding: 1rem;
   }
 }
-

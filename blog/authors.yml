@@ -1,6 +1,11 @@
 your_name:
   name: Your Name
   title: Senior Software Engineer
-  url: https://your-site.com
+  url: https://hasnat-abdullah.github.io
   image_url: /img/avatar.svg
 
+hasnat:
+  name: Abu Hasnat Abdullah
+  title: Senior Software Engineer
+  url: https://hasnat-abdullah.github.io
+  image_url: /img/pic.jpeg
