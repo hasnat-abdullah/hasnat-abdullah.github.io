@@ -50,6 +50,10 @@
   /* Spacing - Compact */
   --section-padding: 2.5rem 1.5rem;
   --card-padding: 1.25rem;
+
+  /* Navbar and footer */
+  --ifm-navbar-background-color: rgba(255, 255, 255, 0.95);
+  --ifm-footer-background-color: rgba(255, 255, 255, 0.95);
 }
 
 /* ============================================
@@ -89,7 +93,7 @@
 
   /* Navbar and footer */
   --ifm-navbar-background-color: rgba(26, 26, 26, 0.95);
-  --ifm-footer-background-color: #1a1a1a;
+  --ifm-footer-background-color: rgba(26, 26, 26, 0.95);
 }
 
 /* ============================================
@@ -595,12 +599,11 @@ button:focus-visible {
    FOOTER CUSTOMIZATION
    ============================================ */
 .footer {
+  backdrop-filter: blur(12px);
   border-top: 1px solid var(--sci-fi-border);
+  box-shadow: 0 -2px 8px var(--navbar-shadow);
   padding: 1rem 0;
-}
-
-[data-theme='dark'] .footer {
-  box-shadow: 0 -2px 12px var(--card-shadow);
+  background: var(--ifm-footer-background-color);
 }
 
 /* ============================================
