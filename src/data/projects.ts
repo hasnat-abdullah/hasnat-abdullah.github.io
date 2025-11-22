@@ -40,16 +40,12 @@ export const projects: Project[] = [
     title: 'Boarding Bay',
     description: `Developed 3 microservices for eKYC system: NID OCR, Face detection, and Billing, enhancing data processing and customer interactions for Jamuna Bank.`,
     technologies: ['FastAPI', 'Flask', 'Django', 'REST API', 'Microservices', 'TensorFlow', 'PyTorch'],
-  },
-  {
-    title: 'Customized Universal AI Chatbot',
-    description: `AI chatbot tailored with OpenAI for versatile applications, custom knowledge base for each user, and fine-tune their model.`,
-    technologies: ['LLM', 'OpenAI', 'Django', 'PostgreSQL', 'PGVector', 'SaaS', 'AWS'],
+    featured: true,
   },
   {
     title: 'Smart College Management with Biometric Attendance',
     description: `Offering features like probabilistic student performance analysis, absence notifications, result tracking, fee management, report card generation, ID card creation etc.`,
-    technologies: ['Django', 'REST API', 'PostgreSQL', 'Async IO', 'Kafka', 'Redis', 'AWS'],
+    technologies: ['Django', 'REST API', 'PostgreSQL', 'Celery', 'Redis', 'AWS', 'IOT'],
   },
   {
     title: 'Open Organization - Transparent & Traceable Donation Raise',

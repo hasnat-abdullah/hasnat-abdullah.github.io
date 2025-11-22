@@ -2,7 +2,7 @@ import React from 'react';
 import { certifications } from '@site/src/data/certifications';
 import styles from './CertificationsSection.module.css';
 
-export default function CertificationsSection(): JSX.Element {
+export default function CertificationsSection() {
   return (
     <section id="certifications" className={styles.certificationsSection}>
       <div className="container">
