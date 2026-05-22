@@ -7,71 +7,70 @@ export default function HeroAboutSection(): React.JSX.Element {
     <section id="hero" className={styles.heroAboutSection}>
       <div className="container">
         <div className={styles.content}>
-          <div className={styles.mainInfo}>
-            <div className={styles.header}>
-              <h1 className={styles.name}>
-                {profile.name}
-              </h1>
-              <h2 className={styles.title}>{profile.title}</h2>
-              <p className={styles.tagline}># {profile.tagline}</p>
-            </div>
-
-            <div className={styles.bioSection}>
-              <p className={styles.bio}>{profile.bio}</p>
-              <div className={styles.infoActions}>
-                <div className={styles.info}>
-                  <span className={styles.infoItem}>
-                    <span className={styles.label}>Email:</span>
-                    <a href={`mailto:${profile.email}`}>{profile.email}</a>
-                  </span>
-                  <span className={styles.infoItem}>
-                    <span className={styles.label}>Location:</span>
-                    <span>{profile.location}</span>
-                  </span>
-                  <span className={styles.infoItem}>
-                    <span className={styles.label}>Social:</span>
-                    <span className={styles.socialLinks}>
-                      {profile.github && (
-                        <>
-                          <a href={profile.github} target="_blank" rel="noopener noreferrer" className={styles.socialLink} title="GitHub">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-                            </svg>
-                            <span>Github</span>
-                          </a>
-                          <span className={styles.divider}>|</span>
-                        </>
-                      )}
-                      {profile.linkedin && (
-                        <>
-                          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className={styles.socialLink} title="LinkedIn">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                              <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
-                            </svg>
-                            <span>Linkedin</span>
-                          </a>
-                          <span className={styles.divider}>|</span>
-                        </>
-                      )}
-                      <a href="/cv.pdf" download className={styles.socialLink} title="Download CV">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                        </svg>
-                        <b>Download CV</b>
-                      </a>
-                    </span>
-                  </span>
+          {/* Avatar Section - Left Side */}
+          <div className={styles.avatarSection}>
+            <div className={styles.avatarBox}>
+              {profile.avatar ? (
+                <img src={profile.avatar} alt={profile.name} className={styles.avatar} />
+              ) : (
+                <div className={styles.avatarPlaceholder}>
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" fill="currentColor"/>
+                    <path d="M12.0002 14.5C6.99016 14.5 2.91016 17.86 2.91016 22C2.91016 22.28 3.13016 22.5 3.41016 22.5H20.5902C20.8702 22.5 21.0902 22.28 21.0902 22C21.0902 17.86 17.0102 14.5 12.0002 14.5Z" fill="currentColor"/>
+                  </svg>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
-          {profile.avatar && (
-            <div className={styles.avatarWrapper}>
-              <img src={profile.avatar} alt={profile.name} className={styles.avatar} />
+          {/* Information Section - Right Side */}
+          <div className={styles.infoSection}>
+            <h1 className={styles.name}>
+              {profile.name}<span className={styles.underscore}>_</span>
+            </h1>
+            <h2 className={styles.title}>{profile.title}</h2>
+            <p className={styles.tagline}>{profile.tagline}</p>
+
+            <div className={styles.detailsGrid}>
+
+              {profile.email && (
+                <div className={styles.detailItem}>
+                  <span className={styles.detailLabel}>EMAIL:</span>
+                  <a href={`mailto:${profile.email}`} className={styles.detailValue}>{profile.email}</a>
+                </div>
+              )}
+              {profile.address && (
+                <div className={styles.detailItem}>
+                  <span className={styles.detailLabel}>ADDRESS:</span>
+                  <span className={styles.detailValue}>{profile.address}</span>
+                </div>
+              )}
             </div>
-          )}
+
+            <div className={styles.socialIcons}>
+              {profile.github && (
+                <a href={profile.github} target="_blank" rel="noopener noreferrer" className={styles.socialIcon} title="GitHub">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                </a>
+              )}
+              {profile.linkedin && (
+                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className={styles.socialIcon} title="LinkedIn">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                </a>
+              )}
+              {profile.facebook && (
+                <a href={profile.facebook} target="_blank" rel="noopener noreferrer" className={styles.socialIcon} title="Facebook">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>
