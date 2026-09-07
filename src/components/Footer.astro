@@ -1,0 +1,14 @@
+---
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer style="background:var(--color-neutral-900);color:var(--color-neutral-400)">
+  <div
+    style="max-width:1180px;margin:0 auto;padding:24px 36px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font-size:15px;letter-spacing:.04em"
+  >
+    <span>© {year} {site.name}</span>
+    <a href="#top" style="color:var(--color-neutral-300)">Back to top</a>
+  </div>
+</footer>

@@ -1,0 +1,557 @@
+---
+import Base from '../layouts/Base.astro';
+import Corners from '../components/Corners.astro';
+import { site, hero } from '../data/site';
+import { metrics, workGroups, otherWork } from '../data/work';
+import { approach, experience, skills, education, certifications, research } from '../data/profile';
+
+const title = `${site.name} — ${site.role}`;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: site.role,
+  email: `mailto:${site.email}`,
+  url: site.url,
+  image: new URL(site.portrait, site.url).href,
+  address: { '@type': 'PostalAddress', addressLocality: 'Dhaka', addressCountry: 'BD' },
+  sameAs: [site.github, site.linkedin],
+  knowsAbout: [
+    'Large language models',
+    'Retrieval-augmented generation',
+    'Computer vision',
+    'MLOps',
+    'Time-series forecasting',
+  ],
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'North South University' },
+};
+---
+
+<Base title={title} description={site.description} active="home">
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(personSchema)}
+  />
+
+  {/* ── Hero ─────────────────────────────────────────────────────────── */}
+  <section id="top" class="gridbg" style="border-bottom:1px solid var(--color-divider)">
+    <div
+      class="hero-grid"
+      style="max-width:1180px;margin:0 auto;padding:44px 36px 72px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.85fr);gap:64px;align-items:center"
+    >
+      <div>
+        <p class="eyebrow rv" style="margin:0 0 20px;color:var(--color-accent-700)">
+          {hero.eyebrow}
+        </p>
+        <h1
+          class="rv"
+          style="font-size:clamp(52px,7.4vw,92px);line-height:.94;letter-spacing:-0.01em;text-transform:uppercase;margin:0 0 26px"
+        >
+          {hero.headline[0]}<br />{hero.headline[1]}
+        </h1>
+        <p
+          class="rv"
+          style="font-size:clamp(21px,2.4vw,28px);line-height:1.36;margin:0 0 20px;max-width:24ch;font-weight:500"
+        >
+          {hero.lede}
+        </p>
+        <p
+          class="rv"
+          style="font-size:17px;line-height:1.6;margin:0 0 28px;max-width:52ch;color:var(--color-neutral-800)"
+          set:html={hero.standfirst}
+        />
+
+        {
+          hero.showAvailability && (
+            <p
+              class="rv"
+              style="display:inline-flex;align-items:center;gap:10px;margin:0 0 28px;padding:8px 16px;border:1px solid var(--color-accent-400);background:var(--color-accent-100);color:var(--color-accent-800);font-size:15px;font-weight:500"
+            >
+              <span
+                aria-hidden="true"
+                style="width:8px;height:8px;background:var(--color-accent-600);flex:none"
+              />
+              {hero.availability}
+            </p>
+          )
+        }
+
+        <div class="rv" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+          <a
+            class="btn btn-primary"
+            href={`mailto:${site.email}`}
+            style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;padding:11px 20px"
+            >Email me</a
+          >
+          <a
+            class="btn btn-secondary"
+            href={site.linkedin}
+            rel="me noopener"
+            style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;padding:11px 20px"
+            >LinkedIn</a
+          >
+          <a
+            class="btn btn-secondary"
+            href={site.github}
+            rel="me noopener"
+            style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;padding:11px 20px"
+            >GitHub</a
+          >
+        </div>
+      </div>
+
+      <figure
+        class="blueprint rv"
+        style="justify-self:end;width:100%;max-width:320px;margin:0;background:var(--color-bg)"
+      >
+        <Corners />
+        <div class="duotone" style="aspect-ratio:1;background:var(--color-accent-200)">
+          <img
+            src={site.portrait}
+            alt={hero.portraitAlt}
+            width="640"
+            height="640"
+            fetchpriority="high"
+            style="width:100%;height:100%;object-fit:cover"
+          />
+        </div>
+        <figcaption
+          style="font-family:var(--font-heading);font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;padding:9px 11px;border-top:1px solid var(--color-divider);color:var(--color-neutral-700)"
+        >
+          {hero.figcaption}
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  {/* ── Measured outcomes ────────────────────────────────────────────── */}
+  <section
+    aria-label="Selected outcomes"
+    class="dark"
+    style="background:var(--color-accent-900);color:var(--color-neutral-100)"
+  >
+    <div style="max-width:1180px;margin:0 auto;padding:64px 36px">
+      <p class="eyebrow rv" style="margin:0 0 30px;color:var(--color-accent-300)">
+        Measured outcomes
+      </p>
+      <div class="metrics" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px">
+        {
+          metrics.map((metric) => (
+            <div
+              class="blueprint plate rv"
+              style="padding:26px 24px;border-color:color-mix(in srgb,#f5f5f8 28%,transparent)"
+            >
+              <Corners />
+              <p
+                data-count
+                style="font-family:var(--font-heading);font-weight:600;font-size:clamp(40px,4.4vw,58px);line-height:.9;letter-spacing:-0.01em;margin:0 0 14px;color:var(--color-accent-300);font-variant-numeric:tabular-nums"
+              >
+                {metric.value}
+              </p>
+              <p style="margin:0;font-size:16px;line-height:1.5;color:var(--color-accent-200)">
+                {metric.caption}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ── Selected work ────────────────────────────────────────────────── */}
+  <section id="work" style="max-width:1180px;margin:0 auto;padding:84px 36px;scroll-margin-top:80px">
+    <p class="eyebrow rv" style="margin:0 0 14px;color:var(--color-accent-700)">Selected work</p>
+    <div
+      class="rv"
+      style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:16px"
+    >
+      <h2 style="font-size:clamp(38px,4.8vw,60px);line-height:.98;margin:0;max-width:16ch">
+        Seven systems, and what they changed
+      </h2>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-toggle-all
+        hidden
+        style="flex:none;font-size:15px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px"
+      >
+        <span data-toggle-all-label>Expand all</span>
+      </button>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:22px">
+      {
+        workGroups.map((group, groupIndex) => (
+          <>
+            <div
+              class="rv"
+              style={`display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 16px;${groupIndex > 0 ? 'margin-top:22px;' : ''}padding-bottom:6px;border-bottom:2px solid var(--color-text)`}
+            >
+              <p
+                style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:24px;letter-spacing:.04em;text-transform:uppercase"
+              >
+                {group.employer}
+              </p>
+              <p style="margin:0;font-size:15px;color:var(--color-neutral-700)">{group.meta}</p>
+            </div>
+
+            {group.projects.map((project) => (
+              <details class="blueprint pcard rv" data-project style="padding:30px">
+                <summary>
+                  <h3 style="font-size:30px;letter-spacing:.01em;margin:0 0 12px">
+                    {project.title}
+                  </h3>
+                  <p
+                    style="margin:0 0 18px;font-size:17px;font-weight:700;color:var(--color-accent-800)"
+                  >
+                    {project.outcome}
+                  </p>
+                  <div
+                    style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px"
+                  >
+                    <ul style="list-style:none;display:flex;flex-wrap:wrap;gap:7px;padding:0;margin:0">
+                      {project.tags.map((tag) => (
+                        <li class="tag tag-accent">{tag}</li>
+                      ))}
+                    </ul>
+                    <span
+                      class="detail"
+                      style="flex:none;font-family:var(--font-heading);font-weight:600;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700);cursor:pointer"
+                    >
+                      <span class="detail-open">− Detail</span>
+                      <span class="detail-shut">+ Detail</span>
+                    </span>
+                  </div>
+                </summary>
+                <Corners />
+
+                <div
+                  class="two-col"
+                  style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:24px;padding-top:22px;border-top:1px solid var(--color-divider)"
+                >
+                  <div>
+                    <h4
+                      style="font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 10px"
+                    >
+                      The problem
+                    </h4>
+                    <p style="margin:0;font-size:17px;line-height:1.6">{project.problem}</p>
+                  </div>
+                  <div>
+                    <h4
+                      style="font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 10px"
+                    >
+                      What I did
+                    </h4>
+                    <p style="margin:0;font-size:17px;line-height:1.6">{project.approach}</p>
+                  </div>
+                  <div>
+                    <h4
+                      style="font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 10px"
+                    >
+                      The result
+                    </h4>
+                    <p style="margin:0;font-size:17px;line-height:1.6">{project.result}</p>
+                  </div>
+                </div>
+              </details>
+            ))}
+          </>
+        ))
+      }
+    </div>
+
+    <div class="rv" style="margin-top:44px;padding-top:30px;border-top:1px solid var(--color-divider)">
+      <h3 style="font-size:26px;letter-spacing:.02em;margin:0 0 8px">Also shipped</h3>
+      <ul
+        style="list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0 40px"
+      >
+        {
+          otherWork.map((item) => (
+            <li
+              class="rowlink"
+              style="font-size:17px;padding:11px 0;border-bottom:1px solid var(--color-divider)"
+            >
+              {item.title} <span style="color:var(--color-neutral-700)">— {item.note}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* ── How I work ───────────────────────────────────────────────────── */}
+  <section
+    id="approach"
+    class="dark"
+    style="background:var(--color-accent-900);color:var(--color-neutral-100);scroll-margin-top:80px"
+  >
+    <div style="max-width:1180px;margin:0 auto;padding:84px 36px">
+      <p class="eyebrow rv" style="margin:0 0 14px;color:var(--color-accent-300)">
+        {approach.eyebrow}
+      </p>
+      <h2
+        class="rv"
+        style="font-size:clamp(36px,4.4vw,54px);line-height:1;margin:0 0 44px;max-width:20ch;color:var(--color-neutral-100)"
+      >
+        {approach.heading}
+      </h2>
+      <div class="two-col" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:38px">
+        {
+          approach.principles.map((principle) => (
+            <div class="rv">
+              <p
+                style="font-family:var(--font-heading);font-weight:600;font-size:56px;line-height:.9;margin:0 0 14px;color:var(--color-accent-400)"
+              >
+                {principle.number}
+              </p>
+              <p
+                style="margin:0 0 10px;font-family:var(--font-heading);font-weight:600;font-size:26px;letter-spacing:.02em;color:var(--color-neutral-100)"
+              >
+                {principle.title}
+              </p>
+              <p style="margin:0;font-size:17px;line-height:1.6;color:var(--color-accent-200)">
+                {principle.body}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ── Experience ───────────────────────────────────────────────────── */}
+  <section
+    id="experience"
+    style="max-width:1180px;margin:0 auto;padding:84px 36px;scroll-margin-top:80px"
+  >
+    <p class="eyebrow rv" style="margin:0 0 14px;color:var(--color-accent-700)">Experience</p>
+    <h2 class="rv" style="font-size:clamp(38px,4.8vw,60px);line-height:.98;margin:0 0 40px">
+      Where I've done it
+    </h2>
+    <ol style="list-style:none;padding:0;margin:0">
+      {
+        experience.map((role, index) => (
+          <li
+            class="two-col rv"
+            style={`display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:32px;padding:28px 0;${index === experience.length - 1 ? 'border-block:1px solid var(--color-divider)' : 'border-top:1px solid var(--color-divider)'}`}
+          >
+            <div>
+              <p
+                style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:20px;letter-spacing:.06em;text-transform:uppercase"
+              >
+                {role.period}
+              </p>
+              <p style="margin:0;font-size:16px;color:var(--color-neutral-700)">{role.where}</p>
+            </div>
+            <div>
+              <h3 style="font-size:25px;letter-spacing:.01em;margin:0 0 8px">{role.title}</h3>
+              <p style="margin:0;font-size:18px;line-height:1.6;max-width:70ch">{role.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  {/* ── Skills ───────────────────────────────────────────────────────── */}
+  <section
+    id="skills"
+    class="gridbg"
+    style="border-block:1px solid var(--color-divider);background-color:var(--color-neutral-200);scroll-margin-top:80px"
+  >
+    <div style="max-width:1180px;margin:0 auto;padding:84px 36px">
+      <p class="eyebrow rv" style="margin:0 0 14px;color:var(--color-accent-700)">Skills</p>
+      <h2 class="rv" style="font-size:clamp(38px,4.8vw,60px);line-height:.98;margin:0 0 16px">
+        What I reach for
+      </h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px">
+        {
+          skills.map((group) => (
+            <div class="blueprint skillcell rv" style="padding:24px 22px">
+              <Corners />
+              <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px">
+                <span
+                  aria-hidden="true"
+                  style="font-family:var(--font-heading);font-weight:600;font-size:38px;line-height:.8;color:var(--color-accent-400);font-variant-numeric:tabular-nums"
+                >
+                  {group.number}
+                </span>
+                <h3
+                  style="font-size:22px;letter-spacing:.04em;text-transform:uppercase;margin:0"
+                  set:html={group.title}
+                />
+              </div>
+              <ul style="list-style:none;display:flex;flex-wrap:wrap;gap:7px;padding:0;margin:0">
+                {group.items.map((item, index) => (
+                  <li
+                    class={index === 0 ? 'tag tag-accent' : 'tag tag-outline'}
+                    style="font-size:13px"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ── Credentials ──────────────────────────────────────────────────── */}
+  <section
+    id="credentials"
+    style="max-width:1180px;margin:0 auto;padding:84px 36px;scroll-margin-top:80px"
+  >
+    <p class="eyebrow rv" style="margin:0 0 14px;color:var(--color-accent-700)">Credentials</p>
+    <h2 class="rv" style="font-size:clamp(38px,4.8vw,60px);line-height:.98;margin:0 0 40px">
+      Education, certifications, research
+    </h2>
+    <div class="two-col" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px">
+      <div class="rv">
+        <h3
+          style="font-size:21px;letter-spacing:.05em;text-transform:uppercase;margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid var(--color-text)"
+        >
+          Education
+        </h3>
+        <p style="margin:0 0 6px;font-size:18px;font-weight:700" set:html={education.degree} />
+        <p style="margin:0;font-size:17px;color:var(--color-neutral-800)" set:html={education.detail} />
+      </div>
+
+      <div class="rv">
+        <h3
+          style="font-size:21px;letter-spacing:.05em;text-transform:uppercase;margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid var(--color-text)"
+        >
+          Certifications
+        </h3>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px">
+          {
+            certifications.map((certification) => (
+              <li style="font-size:17px;line-height:1.5">
+                <span set:html={certification.title} />
+                <br />
+                <span
+                  style="color:var(--color-neutral-700)"
+                  set:html={certification.issuer}
+                />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="rv">
+        <h3
+          style="font-size:21px;letter-spacing:.05em;text-transform:uppercase;margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid var(--color-text)"
+        >
+          Research
+        </h3>
+        <p style="margin:0 0 6px;font-size:18px;font-weight:700">{research.title}</p>
+        <p style="margin:0;font-size:17px;color:var(--color-neutral-800)">{research.detail}</p>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Contact ──────────────────────────────────────────────────────── */}
+  <section
+    id="contact"
+    class="dark gridbg"
+    style="background-color:var(--color-accent-900);color:var(--color-neutral-100)"
+  >
+    <div
+      class="two-col"
+      style="max-width:1180px;margin:0 auto;padding:84px 36px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:52px;align-items:start"
+    >
+      <div class="rv">
+        <p class="eyebrow" style="margin:0 0 16px;color:var(--color-accent-300)">Contact</p>
+        <h2
+          style="font-size:clamp(38px,5vw,64px);line-height:.98;margin:0 0 20px;color:var(--color-neutral-100)"
+        >
+          Let's talk about the hard part
+        </h2>
+        <p
+          style="margin:0 0 30px;max-width:50ch;font-size:19px;line-height:1.55;color:var(--color-accent-200)"
+        >
+          If you're putting an AI system in front of real users and the grounding, evaluation or
+          operations side is keeping you up — that's my favourite conversation.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <a
+            class="btn"
+            href={`mailto:${site.email}`}
+            style="background:var(--color-accent-300);border-color:var(--color-accent-300);color:var(--color-accent-900);font-size:15px;letter-spacing:.08em;text-transform:uppercase;padding:12px 22px"
+            >Email {site.email}</a
+          >
+          <a
+            class="btn"
+            href={site.cv}
+            download={site.cvFilename}
+            style="border-color:color-mix(in srgb,#f5f5f8 45%,transparent);color:var(--color-neutral-100);font-size:15px;letter-spacing:.08em;text-transform:uppercase;padding:12px 22px"
+            >Download CV (PDF)</a
+          >
+        </div>
+      </div>
+
+      <div class="rv">
+        <h3
+          style="font-size:21px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 16px;padding-bottom:8px;border-bottom:1px solid color-mix(in srgb,#f5f5f8 35%,transparent);color:var(--color-neutral-100)"
+        >
+          Elsewhere
+        </h3>
+        <ul
+          style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;font-size:17px"
+        >
+          <li>
+            <a href={site.github} rel="me noopener" style="color:var(--color-accent-300)"
+              >GitHub — {site.githubHandle}</a
+            >
+          </li>
+          <li>
+            <a href={site.linkedin} rel="me noopener" style="color:var(--color-accent-300)"
+              >LinkedIn — {site.linkedinHandle}</a
+            >
+          </li>
+          <li>
+            <a href="/blog" style="color:var(--color-accent-300)">Blog — notes on AI engineering</a>
+          </li>
+        </ul>
+        <p style="margin:26px 0 0;font-size:17px;color:var(--color-accent-200)">
+          {site.location} · {site.timezone}<br />Working with Nordic teams since 2021.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // The expand/collapse-all control only makes sense with JavaScript, so it
+  // stays hidden until this runs. The cards themselves are <details> and work
+  // on their own without it.
+  const cards = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-project]'));
+  const button = document.querySelector<HTMLButtonElement>('[data-toggle-all]');
+  const label = document.querySelector<HTMLElement>('[data-toggle-all-label]');
+
+  if (cards.length > 0 && button && label) {
+    button.hidden = false;
+
+    const sync = () => {
+      const anyOpen = cards.some((card) => card.open);
+      label.textContent = anyOpen ? 'Collapse all' : 'Expand all';
+    };
+
+    button.addEventListener('click', () => {
+      const next = !cards.some((card) => card.open);
+      cards.forEach((card) => {
+        card.open = next;
+      });
+      sync();
+    });
+
+    cards.forEach((card) => card.addEventListener('toggle', sync));
+    sync();
+  }
+</script>

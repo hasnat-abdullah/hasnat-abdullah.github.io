@@ -1,0 +1,364 @@
+/* ==========================================================================
+   Site styles — the page-level layer that sits on top of the Industry
+   design-system tokens in tokens.css. Ported from the Claude Design
+   prototypes "Personal Site" and "Blog".
+   ========================================================================== */
+
+body {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
+
+a { color: var(--color-accent-700); }
+a:hover { color: var(--color-accent-800); }
+
+/* — skip link — */
+.skip { position: absolute; left: -9999px; top: 0; z-index: 99; }
+.skip:focus {
+  left: 16px; top: 12px;
+  background: var(--color-accent); color: #fff; padding: 10px 18px;
+}
+
+/* — shared type + surface treatments — */
+.eyebrow {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+.gridbg {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--color-text) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-text) 5%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* — nav — */
+.navlinks a { position: relative; }
+.navlinks a::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -6px; height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .25s ease;
+}
+.navlinks a:hover::after,
+.navlinks a[aria-current="true"]::after,
+.navlinks a[aria-current="page"]::after { transform: scaleX(1); }
+.navlinks a[aria-current="true"],
+.navlinks a[aria-current="page"] { color: var(--color-accent-800); }
+
+/* Reading-progress tick under the header */
+.tick {
+  display: block; height: 100%;
+  background: var(--color-accent);
+  transform-origin: left; transform: scaleX(0);
+}
+
+/* — theme toggle — */
+.themebtn {
+  display: flex; align-items: center; justify-content: center;
+  flex: none; width: 42px; height: 42px;
+  background: transparent;
+  border: 1px solid var(--color-divider);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color .2s ease, color .2s ease;
+}
+.themebtn:hover { border-color: var(--color-accent); color: var(--color-accent-700); }
+.themebtn svg { width: 19px; height: 19px; }
+
+/* Which icon shows is decided by the theme already on <html>, so the button is
+   correct on first paint and needs no JavaScript. The sun offers the light
+   theme and therefore appears while dark is active, and vice versa. */
+.themebtn [data-theme-icon='dark'] { display: none; }
+.themebtn [data-theme-icon='light'] { display: block; }
+html[data-theme='dark'] .themebtn [data-theme-icon='dark'] { display: block; }
+html[data-theme='dark'] .themebtn [data-theme-icon='light'] { display: none; }
+
+/* — reveal on scroll —
+   Gated on html.js so the page renders in its final position without
+   JavaScript rather than sitting permanently offset. */
+html.js .rv {
+  transform: translateY(20px);
+  transition: transform .6s cubic-bezier(.2, .7, .3, 1);
+}
+html.js .rv-in { transform: none; }
+
+/* — project / entry cards — */
+.pcard { transition: border-color .25s ease, background .25s ease, transform .25s ease; }
+.pcard:hover {
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 5%, transparent);
+  transform: translateY(-2px);
+}
+.pcard:hover > .corner { color: var(--color-accent); }
+.pcard > .corner { transition: color .25s ease; }
+
+.detail { transition: color .2s ease; }
+.detail:hover { color: var(--color-accent-800); }
+
+.dark .corner { color: color-mix(in srgb, #f5f5f8 45%, transparent); }
+
+.plate { transition: border-color .25s ease; }
+.plate:hover { border-color: var(--color-accent-400); }
+
+.skillcell { transition: border-color .25s ease, transform .25s ease; }
+.skillcell:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+.skillcell:hover > .corner { color: var(--color-accent); }
+.skillcell > .corner { transition: color .25s ease; }
+
+.rowlink { transition: padding-left .2s ease, color .2s ease; }
+.rowlink:hover { padding-left: 8px; color: var(--color-accent-800); }
+
+/* — collapsible project detail —
+   Implemented with <details>/<summary> so the cards work without JS.
+   The marker is hidden; the +/− label is driven by [open]. */
+.pcard > summary { list-style: none; cursor: pointer; }
+.pcard > summary::-webkit-details-marker { display: none; }
+.pcard > summary::marker { content: ""; }
+.pcard .detail-open { display: none; }
+.pcard[open] .detail-open { display: inline; }
+.pcard[open] .detail-shut { display: none; }
+
+/* ==========================================================================
+   Blog
+   ========================================================================== */
+
+.entry { transition: border-color .25s ease, background .25s ease; }
+.entry:hover {
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 5%, transparent);
+}
+.entry:hover > .corner { color: var(--color-accent); }
+.entry > .corner { transition: color .25s ease; }
+.entry:hover .arrow { transform: translateX(6px); }
+.arrow { transition: transform .25s ease; display: inline-block; }
+
+/* Sidebar */
+.side a:not(.tag),
+.side button:not(.tag):not(.facet) {
+  display: block; width: 100%; text-align: left;
+  background: transparent; border: 0; padding: 6px 0;
+  font: inherit; font-size: 16px; line-height: 1.4;
+  color: var(--color-neutral-800);
+  cursor: pointer; text-decoration: none;
+  transition: color .2s ease, padding-left .2s ease;
+}
+.side a:not(.tag):hover,
+.side button:not(.tag):not(.facet):hover {
+  color: var(--color-accent-800);
+  padding-left: 6px;
+}
+
+.side .tag {
+  -webkit-appearance: none; appearance: none;
+  background: var(--color-accent-100);
+  color: var(--color-accent-800);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.side .tag:hover:not(:disabled) { border-color: var(--color-accent); }
+.side .tag:disabled { opacity: .45; cursor: not-allowed; }
+.side .tag[aria-pressed="true"] {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.side .facet {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; width: 100%;
+  background: transparent; border: 0;
+  border-bottom: 1px solid var(--color-divider);
+  padding: 9px 0;
+  font: inherit; font-size: 16px; text-align: left;
+  color: var(--color-neutral-800);
+  cursor: pointer;
+  transition: color .2s ease, padding-left .2s ease;
+}
+.side .facet:hover { color: var(--color-accent-800); padding-left: 6px; }
+.side .facet[aria-pressed="true"] {
+  color: var(--color-text);
+  font-weight: 700;
+  box-shadow: inset 2px 0 0 var(--color-accent);
+  padding-left: 10px;
+}
+.side .facet .num {
+  font-family: var(--font-heading); font-weight: 600;
+  font-size: 15px; letter-spacing: .06em;
+  color: var(--color-neutral-700);
+  font-variant-numeric: tabular-nums;
+}
+
+.side h2 {
+  font-family: var(--font-heading); font-weight: 600;
+  font-size: 17px; letter-spacing: .14em; text-transform: uppercase;
+  margin: 0 0 10px; padding-bottom: 7px;
+  border-bottom: 2px solid var(--color-text);
+}
+
+/* Post body */
+.prose p { margin: 0 0 22px; font-size: 19px; line-height: 1.7; }
+.prose h2 { font-size: 32px; letter-spacing: .02em; margin: 52px 0 14px; }
+.prose h3 { font-size: 23px; letter-spacing: .04em; text-transform: uppercase; margin: 38px 0 12px; }
+.prose h4 { font-size: 19px; letter-spacing: .06em; text-transform: uppercase; margin: 30px 0 10px; }
+.prose ul, .prose ol { margin: 0 0 22px; padding-left: 22px; }
+.prose li { font-size: 19px; line-height: 1.68; margin-bottom: 8px; }
+.prose strong { font-weight: 700; }
+.prose em { font-style: italic; }
+.prose img { margin: 0 0 22px; border: 1px solid var(--color-divider); }
+.prose blockquote {
+  margin: 0 0 22px; padding: 4px 0 4px 22px;
+  border-left: 2px solid var(--color-accent);
+  color: var(--color-neutral-800);
+}
+.prose pre {
+  margin: 0 0 22px; padding: 20px 22px; overflow-x: auto;
+  background: var(--color-accent-900);
+  color: var(--color-accent-200);
+  border: 1px solid var(--color-accent-800);
+}
+.prose code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 15px; line-height: 1.65;
+}
+.prose p code, .prose li code {
+  background: var(--color-accent-100);
+  color: var(--color-accent-800);
+  padding: 1px 6px; font-size: 15.5px;
+}
+.prose pre code { background: transparent; color: inherit; padding: 0; }
+.prose hr { border: 0; border-top: 1px solid var(--color-divider); margin: 40px 0; }
+.prose table {
+  width: 100%; border-collapse: collapse;
+  margin: 0 0 22px; font-size: 17px;
+}
+.prose th, .prose td {
+  padding: 9px 12px; text-align: left;
+  border-bottom: 1px solid var(--color-divider);
+}
+.prose > :first-child { margin-top: 0; }
+
+/* Anchored headings */
+.prose :is(h2, h3, h4) { scroll-margin-top: 96px; }
+
+/* Table of contents */
+.toc a {
+  display: block; padding: 5px 0 5px 12px;
+  border-left: 2px solid var(--color-divider);
+  font-size: 15px; line-height: 1.4;
+  color: var(--color-neutral-700);
+  text-decoration: none;
+  transition: color .2s ease, border-color .2s ease;
+}
+.toc a:hover, .toc a[aria-current="true"] {
+  color: var(--color-accent-800);
+  border-color: var(--color-accent);
+}
+.toc a.lvl-3 { padding-left: 24px; font-size: 14px; }
+
+/* ==========================================================================
+   Dark theme — the token set is re-pointed, so every var() consumer follows.
+   ========================================================================== */
+
+html[data-theme="dark"] {
+  --color-bg: #161b20;
+  --color-text: #e9ecee;
+  --color-divider: #2c333a;
+  --color-surface: #1c2126;
+
+  --color-neutral-100: #f2f4f6;
+  --color-neutral-200: #1c2126;
+  --color-neutral-300: #cbd1d6;
+  --color-neutral-400: #98a1a9;
+  --color-neutral-500: #79838c;
+  --color-neutral-600: #8d969e;
+  --color-neutral-700: #a7b0b8;
+  --color-neutral-800: #bcc4ca;
+  --color-neutral-900: #0d1013;
+
+  --color-accent-100: #1e2833;
+  --color-accent-200: #d3e2f1;
+  --color-accent-300: #aecae5;
+  --color-accent-400: #82a9cd;
+  --color-accent-500: #6d97c2;
+  --color-accent: #6d97c2;
+  --color-accent-600: #8fb2d4;
+  --color-accent-700: #a6c5e1;
+  --color-accent-800: #c6dcf0;
+  --color-accent-900: #0e1318;
+
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] body { background: var(--color-bg); }
+html[data-theme="dark"] .duotone img { filter: saturate(.35) brightness(.92); }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1080px) {
+  .shell { grid-template-columns: 1fr !important; }
+  .side { position: static !important; }
+  .toc-col { display: none !important; }
+}
+
+@media (max-width: 980px) {
+  .two-col { grid-template-columns: 1fr !important; }
+  .hero-grid { grid-template-columns: 1fr !important; }
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+
+@media (max-width: 860px) {
+  .navwrap { flex-wrap: wrap; }
+  .navlinks { order: 3; width: 100%; overflow-x: auto; padding-bottom: 8px; }
+  .navlinks a { white-space: nowrap; }
+}
+
+@media (max-width: 760px) {
+  main > section,
+  main > section > div,
+  main > div > section,
+  main > div > section > div,
+  main > article > div,
+  .shell,
+  footer > div { padding-left: 20px !important; padding-right: 20px !important; }
+
+  main > section > div,
+  #work, #experience, #credentials { padding-top: 52px !important; padding-bottom: 52px !important; }
+  #top > div { padding-top: 44px !important; padding-bottom: 48px !important; }
+  .navwrap { padding-left: 20px !important; padding-right: 20px !important; }
+  .shell { padding-top: 36px !important; padding-bottom: 56px !important; gap: 36px !important; }
+  .pcard { padding: 22px 20px !important; }
+  .entry { padding: 22px 20px !important; }
+  .plate { padding: 20px 18px !important; }
+  .prose p, .prose li { font-size: 17px !important; }
+  .prose pre { padding: 16px 14px !important; }
+  h1 { letter-spacing: 0 !important; }
+}
+
+@media (max-width: 560px) {
+  .metrics { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 520px) {
+  .navbrand { font-size: 17px !important; }
+  .cvbtn { display: none !important; }
+  .skillcell { padding: 20px 18px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  html.js .rv { transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+html { scroll-behavior: smooth; }

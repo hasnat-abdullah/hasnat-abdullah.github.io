@@ -1,0 +1,142 @@
+---
+import { render } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
+import Base from '../../layouts/Base.astro';
+import Corners from '../../components/Corners.astro';
+import { site } from '../../data/site';
+import { getPosts } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+
+  return posts.map((post, index) => ({
+    params: { slug: post.summary.slug },
+    props: {
+      entry: post.entry,
+      summary: post.summary,
+      // Posts are newest first, so the previous index is the newer post.
+      newer: index > 0 ? posts[index - 1].summary : null,
+      older: index < posts.length - 1 ? posts[index + 1].summary : null,
+    },
+  }));
+}
+
+const { entry, summary, newer, older } = Astro.props;
+const { Content, headings } = await render(entry);
+
+// Only the top two levels earn a place in the table of contents.
+const toc = headings.filter((heading: MarkdownHeading) => heading.depth === 2 || heading.depth === 3);
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: summary.title,
+  description: summary.description,
+  datePublished: summary.dateISO,
+  keywords: summary.tags.join(', '),
+  articleSection: summary.category,
+  author: { '@type': 'Person', name: site.name, url: site.url },
+  publisher: { '@type': 'Person', name: site.name, url: site.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': new URL(summary.href, site.url).href },
+};
+---
+
+<Base title={`${summary.title} — ${site.name}`} description={summary.description} active="blog">
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(articleSchema)}
+  />
+
+  <article>
+    <div class="gridbg" style="border-bottom:1px solid var(--color-divider)">
+      <div style="max-width:1240px;margin:0 auto;padding:32px 36px 52px">
+        <a
+          href="/blog"
+          style="display:inline-block;font-family:var(--font-heading);font-weight:600;font-size:15px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;margin:0 0 32px;color:var(--color-accent-700)"
+          >← All posts</a
+        >
+        <ul style="list-style:none;display:flex;flex-wrap:wrap;gap:7px;padding:0;margin:0 0 18px">
+          {summary.tags.map((tag: string) => <li class="tag tag-accent">{tag}</li>)}
+        </ul>
+        <h1 style="font-size:clamp(38px,5.4vw,68px);line-height:.98;margin:0 0 20px;max-width:20ch">
+          {summary.title}
+        </h1>
+        <p class="eyebrow" style="margin:0;color:var(--color-neutral-700)">
+          {site.name} · <time datetime={summary.dateISO}>{summary.dateLabel}</time> · {
+            summary.readingTime
+          } min read
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="shell"
+      style="max-width:1240px;margin:0 auto;padding:56px 36px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,230px);gap:56px;align-items:start"
+    >
+      <div class="prose" style="max-width:70ch">
+        <Content />
+      </div>
+
+      {
+        toc.length > 0 && (
+          <nav class="toc-col" aria-label="On this page" style="position:sticky;top:96px">
+            <p class="eyebrow" style="margin:0 0 12px;color:var(--color-neutral-700)">
+              On this page
+            </p>
+            <div class="toc">
+              {toc.map((heading: MarkdownHeading) => (
+                <a href={`#${heading.slug}`} class={heading.depth === 3 ? 'lvl-3' : undefined}>
+                  {heading.text}
+                </a>
+              ))}
+            </div>
+          </nav>
+        )
+      }
+    </div>
+
+    {
+      (newer || older) && (
+        <div style="max-width:1240px;margin:0 auto;padding:0 36px 64px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+            {newer ? (
+              <a
+                class="blueprint entry"
+                href={newer.href}
+                style="display:block;padding:24px 26px;text-decoration:none;color:inherit"
+              >
+                <Corners />
+                <p class="eyebrow" style="margin:0 0 8px;color:var(--color-accent-700)">
+                  ← Newer post
+                </p>
+                <p style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:24px;letter-spacing:.02em">
+                  {newer.title}
+                </p>
+              </a>
+            ) : (
+              <div />
+            )}
+
+            {older && (
+              <a
+                class="blueprint entry"
+                href={older.href}
+                style="display:block;padding:24px 26px;text-align:right;text-decoration:none;color:inherit"
+              >
+                <Corners />
+                <p class="eyebrow" style="margin:0 0 8px;color:var(--color-accent-700)">
+                  Older post →
+                </p>
+                <p style="margin:0;font-family:var(--font-heading);font-weight:600;font-size:24px;letter-spacing:.02em">
+                  {older.title}
+                </p>
+              </a>
+            )}
+          </div>
+        </div>
+      )
+    }
+  </article>
+</Base>

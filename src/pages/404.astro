@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import Corners from '../components/Corners.astro';
+import { site } from '../data/site';
+---
+
+<Base title={`Page not found — ${site.name}`} description="That page does not exist.">
+  <section class="gridbg" style="border-bottom:1px solid var(--color-divider)">
+    <div style="max-width:1180px;margin:0 auto;padding:96px 36px 104px">
+      <p class="eyebrow" style="margin:0 0 16px;color:var(--color-accent-700)">Error 404</p>
+      <h1
+        style="font-size:clamp(48px,7vw,88px);line-height:.96;letter-spacing:-0.01em;text-transform:uppercase;margin:0 0 22px"
+      >
+        Page not found
+      </h1>
+      <p
+        style="font-size:clamp(19px,2vw,24px);line-height:1.45;margin:0 0 32px;max-width:44ch;color:var(--color-neutral-800)"
+      >
+        That address does not point at anything. It may have moved, or it may never have existed.
+      </p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <a
+          class="btn btn-primary"
+          href="/"
+          style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;padding:11px 20px"
+          >Home</a
+        >
+        <a
+          class="btn btn-secondary"
+          href="/blog"
+          style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;padding:11px 20px"
+          >Blog</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1180px;margin:0 auto;padding:64px 36px 84px">
+    <div class="blueprint" style="position:relative;padding:30px 32px;max-width:60ch">
+      <Corners />
+      <p class="eyebrow" style="margin:0 0 12px;color:var(--color-accent-700)">Looking for me?</p>
+      <p style="margin:0;font-size:18px;line-height:1.6;color:var(--color-neutral-800)">
+        Reach me at <a href={`mailto:${site.email}`}>{site.email}</a>, or on <a
+          href={site.linkedin}
+          rel="me noopener">LinkedIn</a
+        > and <a href={site.github} rel="me noopener">GitHub</a>.
+      </p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,327 @@
+---
+import Base from '../../layouts/Base.astro';
+import Corners from '../../components/Corners.astro';
+import { site } from '../../data/site';
+import { getPosts, CATEGORY_ORDER, TAG_ORDER, countBy } from '../../lib/posts';
+
+const posts = (await getPosts()).map((post) => post.summary);
+
+const categoryCounts = countBy(posts, (post) => [post.category]);
+const categories = CATEGORY_ORDER.filter((name) => categoryCounts.has(name)).map((name) => ({
+  name,
+  count: categoryCounts.get(name) ?? 0,
+}));
+
+const tagCounts = countBy(posts, (post) => post.tags);
+const knownTags = TAG_ORDER.filter((name) => tagCounts.has(name));
+const extraTags = [...tagCounts.keys()].filter((name) => !TAG_ORDER.includes(name as any)).sort();
+const tags = [...knownTags, ...extraTags].map((name) => ({
+  name,
+  count: tagCounts.get(name) ?? 0,
+}));
+
+const description =
+  'Thoughts on software engineering, AI, management and technology, by Abu Hasnat Abdullah.';
+---
+
+<Base title={`Blog — ${site.name}`} description={description} active="blog">
+  <div>
+    <section class="gridbg" style="border-bottom:1px solid var(--color-divider)">
+      <div style="max-width:1240px;margin:0 auto;padding:64px 36px 52px">
+        <p class="eyebrow rv" style="margin:0 0 16px;color:var(--color-accent-700)">Writing</p>
+        <h1
+          class="rv"
+          style="font-size:clamp(44px,6.4vw,80px);line-height:.96;letter-spacing:-0.01em;text-transform:uppercase;margin:0 0 20px"
+        >
+          Blog
+        </h1>
+        <p
+          class="rv"
+          style="font-size:clamp(18px,1.9vw,22px);line-height:1.45;margin:0;max-width:46ch;font-weight:500;color:var(--color-neutral-800)"
+        >
+          Thoughts on software engineering, AI, management and the occasional bad consumer-tech
+          prediction.
+        </p>
+      </div>
+    </section>
+
+    <div
+      class="shell"
+      style="max-width:1240px;margin:0 auto;padding:44px 36px 84px;display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr);gap:56px;align-items:start"
+    >
+      <aside
+        class="side rv"
+        aria-label="Browse"
+        style="position:sticky;top:96px;display:flex;flex-direction:column;gap:34px"
+      >
+        <div data-filter-ui hidden>
+          <h2>Search</h2>
+          <input
+            class="input"
+            type="search"
+            data-search
+            placeholder="Filter posts…"
+            aria-label="Filter posts by title or tag"
+            style="border-radius:0;background:transparent;font-size:16px"
+          />
+        </div>
+
+        <div data-filter-ui hidden>
+          <h2>Categories</h2>
+          <button type="button" class="facet" data-category="" aria-pressed="true">
+            <span>All writing</span><span class="num">{posts.length}</span>
+          </button>
+          {
+            categories.map((category) => (
+              <button
+                type="button"
+                class="facet"
+                data-category={category.name}
+                aria-pressed="false"
+              >
+                <span>{category.name}</span>
+                <span class="num">{category.count}</span>
+              </button>
+            ))
+          }
+        </div>
+
+        <div data-filter-ui hidden>
+          <h2>Tags</h2>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;padding-top:4px">
+            {
+              tags.map((tag) => (
+                <button
+                  type="button"
+                  class="tag tag-accent"
+                  data-tag={tag.name}
+                  aria-pressed="false"
+                  style="font-size:12.5px"
+                >
+                  {tag.name}
+                  <span style="opacity:.6;margin-left:5px" data-tag-count>
+                    {tag.count}
+                  </span>
+                </button>
+              ))
+            }
+          </div>
+          <p style="margin:12px 0 0;font-size:14px;line-height:1.4;color:var(--color-neutral-700)">
+            Tags narrow within the chosen category.
+          </p>
+        </div>
+
+        <div>
+          <h2>Elsewhere</h2>
+          <a href={site.github} rel="me noopener">GitHub</a>
+          <a href={site.linkedin} rel="me noopener">LinkedIn</a>
+          <a href="/blog/rss.xml">RSS feed</a>
+        </div>
+      </aside>
+
+      <div>
+        <p
+          class="rv"
+          style="margin:0 0 24px;padding-bottom:14px;border-bottom:1px solid var(--color-divider);font-family:var(--font-heading);font-weight:600;font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-neutral-700);display:flex;flex-wrap:wrap;gap:14px;align-items:baseline"
+        >
+          <span data-count-label>{posts.length} {posts.length === 1 ? 'post' : 'posts'}</span>
+          <button
+            type="button"
+            data-clear
+            hidden
+            style="background:transparent;border:0;padding:0;font:inherit;color:var(--color-accent-700);cursor:pointer;text-transform:uppercase"
+            >Clear filter ×</button
+          >
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:20px">
+          {
+            posts.map((post) => (
+              <article
+                class="blueprint entry rv"
+                data-post
+                data-category={post.category}
+                data-tags={post.tags.join('|')}
+                data-haystack={`${post.title} ${post.description} ${post.tags.join(' ')} ${post.category}`.toLowerCase()}
+                style="padding:30px"
+              >
+                <Corners />
+                <p class="eyebrow" style="margin:0 0 12px;color:var(--color-accent-700)">
+                  {post.meta}
+                </p>
+                <h2
+                  style="font-size:clamp(28px,3.2vw,38px);line-height:1.02;letter-spacing:.01em;margin:0 0 14px"
+                >
+                  <a
+                    href={post.href}
+                    style="color:inherit;text-decoration:none"
+                    data-astro-prefetch
+                  >
+                    {post.title}
+                  </a>
+                </h2>
+                <p
+                  style="margin:0 0 18px;font-size:18px;line-height:1.6;color:var(--color-neutral-800)"
+                >
+                  {post.description}
+                </p>
+                <div
+                  style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between"
+                >
+                  <ul style="list-style:none;display:flex;flex-wrap:wrap;gap:7px;padding:0;margin:0">
+                    {post.tags.map((tag) => (
+                      <li class="tag tag-accent">{tag}</li>
+                    ))}
+                  </ul>
+                  <a
+                    href={post.href}
+                    style="text-decoration:none;font-family:var(--font-heading);font-weight:600;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)"
+                  >
+                    Read post <span class="arrow">→</span>
+                  </a>
+                </div>
+              </article>
+            ))
+          }
+
+          <div
+            class="blueprint"
+            data-empty
+            hidden
+            style="position:relative;padding:44px 30px;text-align:center"
+          >
+            <Corners />
+            <p
+              style="margin:0 0 8px;font-family:var(--font-heading);font-weight:600;font-size:26px;letter-spacing:.02em"
+            >
+              Nothing matches that
+            </p>
+            <p style="margin:0 0 18px;font-size:17px;color:var(--color-neutral-800)">
+              Try a different word, or clear the filters to see everything.
+            </p>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-clear
+              style="font-size:15px;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px"
+              >Show all posts</button
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<script>
+  // Client-side filtering over the already-rendered post list. The controls
+  // stay hidden until this runs, so without JavaScript the page is simply a
+  // complete, unfiltered archive rather than a broken set of dead buttons.
+  const posts = Array.from(document.querySelectorAll<HTMLElement>('[data-post]'));
+  if (posts.length > 0) {
+    const search = document.querySelector<HTMLInputElement>('[data-search]');
+    const categoryButtons = Array.from(document.querySelectorAll<HTMLElement>('[data-category]'));
+    const tagButtons = Array.from(document.querySelectorAll<HTMLElement>('[data-tag]'));
+    const clearButtons = Array.from(document.querySelectorAll<HTMLElement>('[data-clear]'));
+    const countLabel = document.querySelector<HTMLElement>('[data-count-label]');
+    const empty = document.querySelector<HTMLElement>('[data-empty]');
+
+    for (const el of document.querySelectorAll<HTMLElement>('[data-filter-ui]')) {
+      el.hidden = false;
+    }
+
+    let query = '';
+    let category = '';
+    let tag = '';
+
+    const matches = (post: HTMLElement, ignore?: 'tag') => {
+      if (category && post.dataset.category !== category) return false;
+      if (ignore !== 'tag' && tag) {
+        const tags = (post.dataset.tags ?? '').split('|');
+        if (!tags.includes(tag)) return false;
+      }
+      if (query && !(post.dataset.haystack ?? '').includes(query)) return false;
+      return true;
+    };
+
+    const apply = () => {
+      let visible = 0;
+      for (const post of posts) {
+        const show = matches(post);
+        post.hidden = !show;
+        if (show) visible += 1;
+      }
+
+      if (countLabel) {
+        // "1 of 4 posts" agrees with the total; "1 post" agrees with itself.
+        countLabel.textContent =
+          query || category || tag
+            ? `${visible} of ${posts.length} ${posts.length === 1 ? 'post' : 'posts'}`
+            : `${visible} ${visible === 1 ? 'post' : 'posts'}`;
+      }
+
+      const filtered = Boolean(query || category || tag);
+      for (const button of clearButtons) {
+        // The button inside the empty state is always shown with it.
+        if (button.closest('[data-empty]')) continue;
+        button.hidden = !filtered;
+      }
+      if (empty) empty.hidden = visible !== 0;
+
+      for (const button of categoryButtons) {
+        button.setAttribute('aria-pressed', String((button.dataset.category ?? '') === category));
+      }
+
+      // A tag is disabled when nothing in the current category carries it.
+      for (const button of tagButtons) {
+        const name = button.dataset.tag ?? '';
+        const available = posts.filter(
+          (post) => matches(post, 'tag') && (post.dataset.tags ?? '').split('|').includes(name),
+        ).length;
+
+        button.setAttribute('aria-pressed', String(name === tag));
+        (button as HTMLButtonElement).disabled = available === 0 && name !== tag;
+
+        const count = button.querySelector<HTMLElement>('[data-tag-count]');
+        if (count) count.textContent = String(available);
+      }
+    };
+
+    search?.addEventListener('input', () => {
+      query = search.value.trim().toLowerCase();
+      apply();
+    });
+
+    for (const button of categoryButtons) {
+      button.addEventListener('click', () => {
+        const next = button.dataset.category ?? '';
+        category = category === next ? '' : next;
+        // A tag that no longer applies inside the new category is dropped.
+        if (tag && !posts.some((post) => matches(post, 'tag') && (post.dataset.tags ?? '').split('|').includes(tag))) {
+          tag = '';
+        }
+        apply();
+      });
+    }
+
+    for (const button of tagButtons) {
+      button.addEventListener('click', () => {
+        const next = button.dataset.tag ?? '';
+        tag = tag === next ? '' : next;
+        apply();
+      });
+    }
+
+    for (const button of clearButtons) {
+      button.addEventListener('click', () => {
+        query = '';
+        category = '';
+        tag = '';
+        if (search) search.value = '';
+        apply();
+      });
+    }
+
+    apply();
+  }
+</script>
