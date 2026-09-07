@@ -204,7 +204,18 @@ html.js .rv-in { transform: none; }
   border-bottom: 2px solid var(--color-text);
 }
 
+/* A grid item's automatic minimum size is its content, so a wide code block or
+   an unbreakable token would otherwise stretch the track and scroll the whole
+   page sideways. Wide content scrolls inside its own box instead. */
+.shell > * { min-width: 0; }
+
 /* Post body */
+.prose {
+  max-width: min(70ch, 100%);
+  /* Some posts link a bare URL as the link text; without this it cannot wrap
+     and pushes the page sideways on a phone. */
+  overflow-wrap: break-word;
+}
 .prose p { margin: 0 0 22px; font-size: 19px; line-height: 1.7; }
 .prose h2 { font-size: 32px; letter-spacing: .02em; margin: 52px 0 14px; }
 .prose h3 { font-size: 23px; letter-spacing: .04em; text-transform: uppercase; margin: 38px 0 12px; }
@@ -224,6 +235,12 @@ html.js .rv-in { transform: none; }
   background: var(--color-accent-900);
   color: var(--color-accent-200);
   border: 1px solid var(--color-accent-800);
+}
+/* The highlighter writes its own surface colour inline, which would otherwise
+   beat the rule above. Token colours are left alone; only the surface is
+   re-pointed at the design's. */
+.prose pre.astro-code {
+  background-color: var(--color-accent-900) !important;
 }
 .prose code {
   font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;

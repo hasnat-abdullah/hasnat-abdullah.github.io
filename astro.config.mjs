@@ -21,7 +21,10 @@ export default defineConfig({
       mdastPlugins: [normalizeHeadings],
     }),
     shikiConfig: {
-      themes: { light: 'github-light', dark: 'github-dark' },
+      // The design gives code blocks a dark navy surface in both themes, so a
+      // single dark token theme is the one that belongs on it. The surface
+      // itself is re-pointed to the design's colour in global.css.
+      theme: 'github-dark',
       wrap: false,
     },
   },

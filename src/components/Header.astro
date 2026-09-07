@@ -7,10 +7,11 @@ interface Props {
 
 const { active = 'home' } = Astro.props;
 
-// On the home page the section links are in-page anchors; everywhere else they
-// have to travel back to the home page first.
-const prefix = active === 'home' ? '' : '/';
-const brandHref = active === 'home' ? '#top' : '/';
+// Whether the section links can stay in-page depends on where we actually are,
+// not on which nav item is marked current — the 404 page is neither.
+const isHome = Astro.url.pathname.replace(/\/$/, '') === '';
+const prefix = isHome ? '' : '/';
+const brandHref = isHome ? '#top' : '/';
 ---
 
 <header
@@ -81,7 +82,7 @@ const brandHref = active === 'home' ? '#top' : '/';
     </button>
 
     {
-      active === 'home' ? (
+      isHome ? (
         <a
           class="btn btn-primary cvbtn"
           href={site.cv}
