@@ -299,7 +299,7 @@ a.contact-link:hover { color: var(--night-accent); }
 .byline { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 28px; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .byline img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: #E3E8E7; }
 .byline__who { flex: 1 1 auto; }
-.byline__name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.byline__name { display: block; font-size: 15px; font-weight: 600; color: var(--ink); }
 .byline__meta { font-size: 14px; color: var(--muted); }
 
 .prose { margin-top: 36px; }

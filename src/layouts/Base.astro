@@ -3,23 +3,26 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { profile } from '../data/site';
-import pic from '../assets/pic.jpeg';
-import { getImage } from 'astro:assets';
 
 interface Props {
   title: string;
   description?: string;
   active?: 'writing';
-  type?: 'website' | 'article';
+  type?: 'website' | 'profile' | 'article';
   published?: Date;
+  modified?: Date;
+  tags?: string[];
+  noindex?: boolean;
   jsonLd?: Record<string, unknown>;
   progress?: boolean;
 }
 
-const { title, description = profile.description, active, type = 'website', published, jsonLd, progress = false } = Astro.props;
+const { title, description = profile.description, active, type = 'website', published, modified, tags = [], noindex = false, jsonLd, progress = false } = Astro.props;
 // build.format "file" makes pathname end in .html; canonical URLs use the extensionless form GitHub Pages serves.
 const canonical = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ""), Astro.site);
-const ogImage = new URL((await getImage({ src: pic, width: 1200, format: 'jpg' })).src, Astro.site);
+const ogImage = new URL(profile.ogImage.src, Astro.site);
+// max-image-preview:large lets Google show the big share card in Search and Discover.
+const robots = noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 
 // GitHub Pages can't send response headers, so the policy ships as a meta tag (prod only: the dev server injects inline scripts).
 const csp = [
@@ -48,10 +51,13 @@ const ld = jsonLd && JSON.stringify(jsonLd).replace(/</g, '\\u003c');
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content={profile.name} />
+    <meta name="robots" content={robots} />
+    {profile.googleSiteVerification && <meta name="google-site-verification" content={profile.googleSiteVerification} />}
     <meta name="theme-color" content="#F4F6F5" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="alternate" type="application/rss+xml" title={`${profile.name} — Writing`} href="/blog/rss.xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:type" content={type} />
@@ -59,9 +65,23 @@ const ld = jsonLd && JSON.stringify(jsonLd).replace(/</g, '\\u003c');
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content={String(profile.ogImage.width)} />
+    <meta property="og:image:height" content={String(profile.ogImage.height)} />
+    <meta property="og:image:alt" content={profile.ogImage.alt} />
     <meta property="og:site_name" content={profile.name} />
+    <meta property="og:locale" content="en_US" />
+    {type === 'profile' && <meta property="profile:first_name" content={profile.givenName} />}
+    {type === 'profile' && <meta property="profile:last_name" content={profile.familyName} />}
     {published && <meta property="article:published_time" content={published.toISOString()} />}
-    <meta name="twitter:card" content="summary" />
+    {type === 'article' && <meta property="article:modified_time" content={(modified ?? published)?.toISOString()} />}
+    {type === 'article' && <meta property="article:author" content={Astro.site?.href} />}
+    {tags.map((t) => <meta property="article:tag" content={t} />)}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={profile.ogImage.alt} />
     {ld && <script type="application/ld+json" set:html={ld} />}
   </head>
   <body>

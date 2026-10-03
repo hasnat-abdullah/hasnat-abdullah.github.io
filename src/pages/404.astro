@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { profile } from '../data/site';
 ---
-<Base title={`Not found — ${profile.name}`} description="This page doesn’t exist.">
+<Base title={`Not found — ${profile.name}`} description="This page doesn’t exist." noindex>
   <main class="wrap notfound">
     <div class="post-kicker">404 · Signal lost</div>
     <h1>This page doesn’t exist.</h1>

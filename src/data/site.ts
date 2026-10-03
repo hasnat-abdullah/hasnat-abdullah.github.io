@@ -3,6 +3,10 @@
 
 export const profile = {
   name: 'Abu Hasnat Abdullah',
+  givenName: 'Abu Hasnat',
+  familyName: 'Abdullah',
+  // Other spellings people search for; feeds the Person schema's alternateName.
+  alternateNames: ['Hasnat Abdullah', 'A. H. Abdullah', 'hasnat-abdullah'],
   handle: 'hasnat.abdullah',
   role: 'Senior Software Engineer',
   metaTitle: 'Abu Hasnat Abdullah — Senior Software Engineer, AI & ML',
@@ -11,9 +15,14 @@ export const profile = {
   email: 'abdullah.2010bd@gmail.com',
   location: 'Dhaka, Bangladesh',
   timezone: 'GMT+6',
-  linkedin: 'https://linkedin.com/in/hasnatabdullah',
+  linkedin: 'https://www.linkedin.com/in/hasnatabdullah/',
   github: 'https://github.com/hasnat-abdullah',
   cv: '/cv.pdf',
+  // Share card shown by Google, LinkedIn, X, Facebook, Slack and WhatsApp (1200×630).
+  ogImage: { src: '/og.jpg', width: 1200, height: 630, alt: 'Abu Hasnat Abdullah — Senior Software Engineer, AI & ML' },
+  employer: { name: 'Cefalo Bangladesh Ltd.', url: 'https://www.cefalo.com' },
+  // Paste the content value of Google Search Console's "HTML tag" verification here.
+  googleSiteVerification: '',
 };
 
 export const signals = [

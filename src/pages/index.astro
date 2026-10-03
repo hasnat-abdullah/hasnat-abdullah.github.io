@@ -7,28 +7,38 @@ import {
   profile, signals, projects, projectFilters, archive, jobs, skills, certs, education, research,
 } from '../data/site';
 import { getPosts, postUrl, category, formatDate, readingTime } from '../lib/posts';
+import { SITE, person, personRef, website, WEBSITE_ID } from '../lib/schema';
 
 const posts = (await getPosts()).slice(0, 4);
 const filterCount = (id: string) => (id === 'all' ? projects.length : projects.filter((p) => p.cats.includes(id as never)).length);
 
+// ProfilePage is Google's dedicated rich result for a person's own site.
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: profile.name,
-  jobTitle: profile.role,
-  email: `mailto:${profile.email}`,
-  url: Astro.site?.href,
-  address: { '@type': 'PostalAddress', addressLocality: 'Dhaka', addressCountry: 'BD' },
-  alumniOf: 'North South University',
-  sameAs: [profile.linkedin, profile.github],
+  '@graph': [
+    person,
+    website,
+    {
+      '@type': 'ProfilePage',
+      '@id': `${SITE}#profilepage`,
+      url: SITE,
+      name: profile.metaTitle,
+      description: profile.description,
+      inLanguage: 'en',
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: personRef,
+      about: personRef,
+      dateModified: new Date().toISOString(),
+    },
+  ],
 };
 ---
-<Base title={profile.metaTitle} jsonLd={jsonLd}>
+<Base title={profile.metaTitle} type="profile" jsonLd={jsonLd}>
   <section id="top" class="hero" aria-labelledby="hero-title">
     <div class="hero__grid" aria-hidden="true"></div>
     <div class="wrap hero__main">
       <div class="hero__copy">
-        <h1 id="hero-title">Abu Hasnat<br />Abdullah<span class="caret" aria-hidden="true"></span></h1>
+        <h1 id="hero-title">Abu Hasnat <br />Abdullah<span class="caret" aria-hidden="true"></span></h1>
         <p class="hero__lead">Senior Software Engineer building <em>LLM, ML and data platforms</em> that hold up in production.</p>
         <p class="hero__sub">Six years shipping Python backends, data platforms and production AI for clients in Norway, Sweden and Bangladesh. Currently lead developer on Sensa AS’s industrial-AI platform at Cefalo; previously tech lead at Strativ AB.</p>
         <div class="hero__ctas">
@@ -211,13 +221,13 @@ const jsonLd = {
               </a>
             </li>
             <li>
-              <a class="contact-link" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+              <a class="contact-link" href={profile.linkedin} target="_blank" rel="me noopener noreferrer">
                 <span class="contact-link__text"><span class="contact-link__label">LinkedIn</span><span class="contact-link__value">in/hasnatabdullah</span></span>
                 <span class="contact-link__arrow" aria-hidden="true">↗</span>
               </a>
             </li>
             <li>
-              <a class="contact-link" href={profile.github} target="_blank" rel="noopener noreferrer">
+              <a class="contact-link" href={profile.github} target="_blank" rel="me noopener noreferrer">
                 <span class="contact-link__text"><span class="contact-link__label">GitHub</span><span class="contact-link__value">hasnat-abdullah</span></span>
                 <span class="contact-link__arrow" aria-hidden="true">↗</span>
               </a>

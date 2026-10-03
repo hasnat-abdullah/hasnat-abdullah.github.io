@@ -9,6 +9,8 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
+    // Set when a post is meaningfully revised; feeds dateModified and the sitemap's lastmod.
+    updated: z.coerce.date().optional(),
     // The first tag is the post's category on the blog index.
     tags: z.array(z.string()).min(1),
     draft: z.boolean().default(false),
