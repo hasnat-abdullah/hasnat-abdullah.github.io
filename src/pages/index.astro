@@ -39,8 +39,8 @@ const jsonLd = {
     <div class="wrap hero__main">
       <div class="hero__copy">
         <h1 id="hero-title">Abu Hasnat <br />Abdullah<span class="caret" aria-hidden="true"></span></h1>
-        <p class="hero__lead">Senior Software Engineer building <em>LLM, ML and data platforms</em> that hold up in production.</p>
-        <p class="hero__sub">Six years shipping Python backends, data platforms and production AI for clients in Norway, Sweden and Bangladesh. Currently lead developer on Sensa AS’s industrial-AI platform at Cefalo; previously tech lead at Strativ AB.</p>
+        <p class="hero__lead">{profile.role} building <em>LLM & agentic systems, MLOps, time-series and computer vision</em> that hold up in production.</p>
+        <p class="hero__sub">6+ years taking ML and LLM systems in Python through the full lifecycle — data pipelines and feature stores, training and fine-tuning, evaluation and guardrails, deployment and monitoring on Azure and AWS — for clients in Norway, Sweden and Bangladesh. Now lead developer on Sensa AS’s industrial-AI platform at Cefalo.</p>
         <div class="hero__ctas">
           <a href="#work" class="btn btn--solid">View selected work <span class="mono" aria-hidden="true">→</span></a>
           <a href={`mailto:${profile.email}`} class="btn btn--ghost">Get in touch</a>
@@ -71,7 +71,7 @@ const jsonLd = {
   <main class="wrap">
     <section id="work" class="section section--first" aria-labelledby="work-title">
       <SectionHead num="01" title="Selected work" id="work" />
-      <p class="section-intro">Production systems in generative AI, computer vision and data infrastructure — most built end-to-end, from data pipeline to deployed model.</p>
+      <p class="section-intro">Production ML and LLM systems — RAG and agents, anomaly detection, computer vision and the data platforms beneath them — most built end-to-end, from data pipeline to deployed, monitored model.</p>
       <div class="filters" role="group" aria-label="Filter projects" data-project-filters hidden>
         {projectFilters.map((f) => (
           <button type="button" class="chip-btn" data-filter={f.id} aria-pressed={f.id === 'all' ? 'true' : 'false'}>
