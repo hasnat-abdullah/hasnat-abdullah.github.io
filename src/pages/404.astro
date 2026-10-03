@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { profile } from '../data/site';
+---
+<Base title={`Not found — ${profile.name}`} description="This page doesn’t exist.">
+  <main class="wrap notfound">
+    <div class="post-kicker">404 · Signal lost</div>
+    <h1>This page doesn’t exist.</h1>
+    <p>The link may be outdated — the site was rebuilt in 2026. Try the home page or the writing archive.</p>
+    <div class="hero__ctas">
+      <a href="/" class="btn btn--solid">Go home <span class="mono" aria-hidden="true">→</span></a>
+      <a href="/blog" class="btn btn--ghost">All articles</a>
+    </div>
+  </main>
+</Base>

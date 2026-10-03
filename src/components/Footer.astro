@@ -1,0 +1,10 @@
+---
+import { profile } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <span>© {year} {profile.name}</span>
+    <span><a href="/blog/rss.xml">RSS</a> · End of transmission_</span>
+  </div>
+</footer>

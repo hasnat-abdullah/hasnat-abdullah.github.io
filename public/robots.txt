@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hasnat-abdullah.github.io/sitemap-index.xml

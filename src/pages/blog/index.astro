@@ -1,0 +1,65 @@
+---
+import Base from '../../layouts/Base.astro';
+import { profile } from '../../data/site';
+import { getPosts, postUrl, category, formatDate, readingTime } from '../../lib/posts';
+
+const posts = await getPosts();
+const counts = new Map<string, number>();
+for (const p of posts) counts.set(category(p), (counts.get(category(p)) ?? 0) + 1);
+const tags = [['All', posts.length] as const, ...counts];
+---
+<Base
+  title={`Writing — ${profile.name}`}
+  description="Essays on software engineering, AI, management and behaviour by Abu Hasnat Abdullah."
+  active="writing"
+>
+  <main class="wrap" data-blog-index>
+    <section class="blog-index blog-layout">
+      <aside class="blog-aside" aria-labelledby="cat-title">
+        <div class="blog-aside__sticky">
+          <div>
+            <div class="aside-title" id="cat-title">Categories</div>
+            <ul class="cat-list">
+              {tags.map(([t, n]) => (
+                <li>
+                  <button type="button" class="cat-btn" data-tag={t} aria-pressed={t === 'All' ? 'true' : 'false'}>
+                    <span class="label">{t}</span><span class="count">{n}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </aside>
+      <div class="blog-main">
+        <h1 data-list-title aria-live="polite">All articles</h1>
+        <ul class="post-list">
+          {posts.map((b) => (
+            <li data-post-tag={category(b)}>
+              <a class="post-item" href={postUrl(b)}>
+                <span class="post-item__meta">
+                  <time datetime={b.data.date.toISOString()}>{formatDate(b.data.date)}</time> · {category(b)} · {readingTime(b.body)}
+                </span>
+                <span class="post-item__title">{b.data.title}</span>
+                <span class="post-item__excerpt">{b.data.description}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <nav class="pager" aria-label="Pagination" data-pager hidden>
+          <span class="pager__status" data-pager-status></span>
+          <div class="pager__buttons">
+            <button type="button" class="chip-btn" data-prev>← Prev</button>
+            <span class="pager__buttons" data-page-nums></span>
+            <button type="button" class="chip-btn" data-next>Next →</button>
+          </div>
+        </nav>
+      </div>
+    </section>
+  </main>
+  <script>
+    import { initBlogIndex } from '../../scripts/blog-index';
+    initBlogIndex();
+  </script>
+</Base>
+

@@ -1,0 +1,124 @@
+---
+import { render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import pic from '../../assets/pic.jpeg';
+import { profile } from '../../data/site';
+import { getPosts, postUrl, category, formatDate, readingTime, type Post } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, i) => ({
+    params: { slug: post.data.slug },
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
+  }));
+}
+
+interface Props { post: Post; newer?: Post; older?: Post }
+const { post, newer, older } = Astro.props;
+const { Content, headings } = await render(post);
+const read = readingTime(post.body);
+
+// Long posts get a top-level-only table of contents to keep the sidebar scannable.
+const tocDepth = headings.filter((h) => h.depth <= 3).length > 12 ? 2 : 3;
+const toc = headings
+  .filter((h) => h.depth <= tocDepth)
+  .map((h) => ({ ...h, text: h.text.replace(/^\d+\s+/, '') }));
+
+const url = new URL(postUrl(post), Astro.site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  url,
+  mainEntityOfPage: url,
+  keywords: post.data.tags.join(', '),
+  author: { '@type': 'Person', name: profile.name, url: Astro.site?.href },
+};
+---
+<Base
+  title={`${post.data.title} — ${profile.name}`}
+  description={post.data.description}
+  active="writing"
+  type="article"
+  published={post.data.date}
+  jsonLd={jsonLd}
+  progress
+>
+  <main class="wrap">
+    <a href="/blog" class="back-link">← All articles</a>
+    <div class="blog-layout post">
+      <aside class="blog-aside" aria-label="Article navigation">
+        <div class="blog-aside__sticky">
+          {toc.length > 0 && (
+            <nav aria-labelledby="toc-title">
+              <div class="aside-title" id="toc-title">On this page</div>
+              <ul class="toc">
+                {toc.map((t) => (
+                  <li class={t.depth > 2 ? 'toc--sub' : undefined}><a href={`#${t.slug}`}>{t.text}</a></li>
+                ))}
+              </ul>
+            </nav>
+          )}
+          <div class="post-stats">
+            <div><span data-read-pct>0%</span> read</div>
+            <div>{read} total</div>
+          </div>
+        </div>
+      </aside>
+      <article class="post-body">
+        <div class="post-kicker">{category(post)}</div>
+        <h1>{post.data.title}</h1>
+        <div class="byline">
+          <Image src={pic} alt="" width={80} height={80} />
+          <div class="byline__who">
+            <div class="byline__name">{profile.name}</div>
+            <div class="byline__meta">
+              <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time> · {read} read
+            </div>
+          </div>
+        </div>
+        <div class="prose">
+          <Content />
+        </div>
+
+        {post.data.references.length > 0 && (
+          <section class="refs" aria-labelledby="refs-title">
+            <h2 class="aside-title" id="refs-title">References</h2>
+            <ul class="rows rows--flush">
+              {post.data.references.map((r) => (
+                <li>
+                  {r.url
+                    ? <a class="ref" href={r.url} target="_blank" rel="noopener noreferrer"><span>{r.label}</span><span class="mono" aria-hidden="true">↗</span></a>
+                    : <span class="ref"><span>{r.label}</span></span>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <nav class="post-nav" aria-label="More articles">
+          {newer && (
+            <a class="card" href={postUrl(newer)} rel="prev">
+              <span class="post-nav__label">← Newer</span>
+              <span class="post-nav__title">{newer.data.title}</span>
+            </a>
+          )}
+          {older && (
+            <a class="card post-nav__next" href={postUrl(older)} rel="next">
+              <span class="post-nav__label">Older →</span>
+              <span class="post-nav__title">{older.data.title}</span>
+            </a>
+          )}
+        </nav>
+      </article>
+    </div>
+  </main>
+  <script>
+    import { initReadProgress } from '../../scripts/read-progress';
+    initReadProgress();
+  </script>
+</Base>
+

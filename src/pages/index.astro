@@ -1,0 +1,240 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import pic from '../assets/pic.jpeg';
+import {
+  profile, signals, projects, projectFilters, archive, jobs, skills, certs, education, research,
+} from '../data/site';
+import { getPosts, postUrl, category, formatDate, readingTime } from '../lib/posts';
+
+const posts = (await getPosts()).slice(0, 4);
+const filterCount = (id: string) => (id === 'all' ? projects.length : projects.filter((p) => p.cats.includes(id as never)).length);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  jobTitle: profile.role,
+  email: `mailto:${profile.email}`,
+  url: Astro.site?.href,
+  address: { '@type': 'PostalAddress', addressLocality: 'Dhaka', addressCountry: 'BD' },
+  alumniOf: 'North South University',
+  sameAs: [profile.linkedin, profile.github],
+};
+---
+<Base title={profile.metaTitle} jsonLd={jsonLd}>
+  <section id="top" class="hero" aria-labelledby="hero-title">
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="wrap hero__main">
+      <div class="hero__copy">
+        <h1 id="hero-title">Abu Hasnat<br />Abdullah<span class="caret" aria-hidden="true"></span></h1>
+        <p class="hero__lead">Senior Software Engineer building <em>LLM, ML and data platforms</em> that hold up in production.</p>
+        <p class="hero__sub">Six years shipping Python backends, data platforms and production AI for clients in Norway, Sweden and Bangladesh. Currently lead developer on Sensa AS’s industrial-AI platform at Cefalo; previously tech lead at Strativ AB.</p>
+        <div class="hero__ctas">
+          <a href="#work" class="btn btn--solid">View selected work <span class="mono" aria-hidden="true">→</span></a>
+          <a href={`mailto:${profile.email}`} class="btn btn--ghost">Get in touch</a>
+        </div>
+      </div>
+      <div class="hero__photo">
+        <div class="frame">
+          <span class="frame__corner frame__corner--tl"></span>
+          <span class="frame__corner frame__corner--tr"></span>
+          <span class="frame__corner frame__corner--bl"></span>
+          <span class="frame__corner frame__corner--br"></span>
+          <Image src={pic} alt={`Portrait of ${profile.name}`} widths={[340, 680]} sizes="(max-width: 720px) 90vw, 340px" loading="eager" fetchpriority="high" />
+        </div>
+      </div>
+    </div>
+    <div class="wrap signals">
+      <dl class="signals__grid">
+        {signals.map((s) => (
+          <div class="signal">
+            <dt>{s.value}</dt>
+            <dd>{s.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section id="work" class="section section--first" aria-labelledby="work-title">
+      <SectionHead num="01" title="Selected work" id="work" />
+      <p class="section-intro">Production systems in generative AI, computer vision and data infrastructure — most built end-to-end, from data pipeline to deployed model.</p>
+      <div class="filters" role="group" aria-label="Filter projects" data-project-filters hidden>
+        {projectFilters.map((f) => (
+          <button type="button" class="chip-btn" data-filter={f.id} aria-pressed={f.id === 'all' ? 'true' : 'false'}>
+            {f.label} <span class="count">{filterCount(f.id)}</span>
+          </button>
+        ))}
+      </div>
+      <p class="sr-only" aria-live="polite" data-project-status></p>
+      <ul class="card-grid">
+        {projects.map((p) => (
+          <li data-cats={p.cats.join(' ')}>
+            <article class="card project">
+              <div class="project__domain">{p.domain}</div>
+              <h3>{p.name}</h3>
+              <p>{p.desc}</p>
+              {p.metric && <div class="project__metric">▸ {p.metric}</div>}
+              <div class="stack">{p.stack.join(' · ')}</div>
+            </article>
+          </li>
+        ))}
+      </ul>
+
+      <div class="archive">
+        <h3 class="eyebrow">Archive</h3>
+        <ul class="rows">
+          {archive.map((a) => (
+            <li class="archive-row">
+              {a.url
+                ? <a class="archive-row__name" href={a.url} target="_blank" rel="noopener noreferrer">{a.name} <span class="mono" aria-hidden="true">↗</span></a>
+                : <span class="archive-row__name">{a.name}</span>}
+              <span class="stack">{a.stack}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section id="experience" class="section" aria-labelledby="experience-title">
+      <SectionHead num="02" title="Experience" id="experience" />
+      <ol class="rows rows--flush">
+        {jobs.map((j) => (
+          <li class="job">
+            <div class="job__when">
+              <span class="dates">{j.dates}</span>
+              <span>{j.place}</span>
+            </div>
+            <div class="job__body">
+              <h3>{j.role}</h3>
+              <div class="job__company">{j.company}</div>
+              <p>{j.desc}</p>
+              {j.stack.length > 0 && <div class="stack">{j.stack.join(' · ')}</div>}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="capabilities" class="section" aria-labelledby="capabilities-title">
+      <SectionHead num="03" title="Skills" id="capabilities" />
+      <ul class="card-grid">
+        {skills.map((k) => (
+          <li class="card skill">
+            <h3>{k.group}</h3>
+            <ul class="tags">
+              {k.list.map((t) => <li class="tag">{t}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="credentials" class="section" aria-labelledby="credentials-title">
+      <SectionHead num="04" title="Credentials" id="credentials" />
+      <div class="creds">
+        <div class="creds__certs">
+          <h3 class="eyebrow">Certifications</h3>
+          <ul class="rows rows--flush">
+            {certs.map((c) => (
+              <li class="cred">
+                <div class="cred__main">
+                  <div class="cred__name">{c.name}</div>
+                  <div class="cred__meta">{c.issuer} · {c.date}</div>
+                </div>
+                {c.url && (
+                  <a class="cred__link" href={c.url} target="_blank" rel="noopener noreferrer">
+                    Verify ↗<span class="sr-only"> {c.name} certificate</span>
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="creds__side">
+          <h3 class="eyebrow">Education</h3>
+          <div class="cred cred--block">
+            <div class="cred__name">{education.degree}</div>
+            <div class="cred__meta">{education.school} · {education.dates}</div>
+            <p>Coursework: {education.coursework}.</p>
+          </div>
+          <h3 class="eyebrow">Research</h3>
+          <div class="cred cred--block">
+            <div class="cred__name">{research.title}</div>
+            <div class="cred__meta">{research.meta}</div>
+            <p>{research.desc}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="writing" class="section" aria-labelledby="writing-title">
+      <SectionHead num="05" title="Writing" id="writing">
+        <a href="/blog" class="section-head__link">All articles →</a>
+      </SectionHead>
+      <ul class="rows rows--flush writing-list">
+        {posts.map((b) => (
+          <li>
+            <a class="post-row" href={postUrl(b)}>
+              <time class="post-row__date" datetime={b.data.date.toISOString()}>{formatDate(b.data.date)}</time>
+              <span class="post-row__main">
+                <span class="post-row__title">{b.data.title}</span>
+                <span class="post-row__excerpt">{b.data.description}</span>
+              </span>
+              <span class="post-row__meta">{category(b)} · {readingTime(b.body)}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="contact" class="contact" aria-labelledby="contact-title">
+      <div class="contact__panel">
+        <div class="contact__grid" aria-hidden="true"></div>
+        <div class="contact__body">
+          <div class="contact__pitch">
+            <div class="contact__kicker">06 · Open channel</div>
+            <h2 id="contact-title">Have a hard AI problem? Let’s talk.</h2>
+            <div class="hero__ctas">
+              <a href={`mailto:${profile.email}`} class="btn btn--night">Email me <span class="mono" aria-hidden="true">→</span></a>
+              <a href={profile.cv} download="Abu-Hasnat-Abdullah-CV.pdf" class="btn btn--night-ghost">Download CV <span class="mono" aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+          <ul class="contact__links">
+            <li>
+              <a class="contact-link" href={`mailto:${profile.email}`}>
+                <span class="contact-link__text"><span class="contact-link__label">Email</span><span class="contact-link__value">{profile.email}</span></span>
+                <span class="contact-link__arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+            <li>
+              <a class="contact-link" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+                <span class="contact-link__text"><span class="contact-link__label">LinkedIn</span><span class="contact-link__value">in/hasnatabdullah</span></span>
+                <span class="contact-link__arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+            <li>
+              <a class="contact-link" href={profile.github} target="_blank" rel="noopener noreferrer">
+                <span class="contact-link__text"><span class="contact-link__label">GitHub</span><span class="contact-link__value">hasnat-abdullah</span></span>
+                <span class="contact-link__arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+            <li>
+              <div class="contact-link">
+                <span class="contact-link__text"><span class="contact-link__label">Location</span><span class="contact-link__value contact-link__value--static">{profile.location} · {profile.timezone}</span></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    import { initProjectFilter } from '../scripts/project-filter';
+    initProjectFilter();
+  </script>
+</Base>
+

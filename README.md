@@ -1,61 +1,46 @@
-# Personal Website
+# hasnat-abdullah.github.io
 
-A modern personal website built with Docusaurus, featuring a single-page layout with sections for About, Skills, Experience, Projects, Certifications, and Blog with infinite scroll.
+Personal site and blog of Abu Hasnat Abdullah, built with [Astro](https://astro.build) as a fully static site and deployed to GitHub Pages.
 
-## Tech Stack
+## Develop
 
-- Docusaurus (TypeScript)
-- Custom CSS with CSS variables
-- React Icons
-- React Intersection Observer
-- MDX for blog posts
-
-## Quick Start
-
-### Installation
+Requires Node 22.12+.
 
 ```bash
 npm install
+npm run dev       # http://localhost:4321
+npm run build     # type-check (astro check) + static build into dist/
+npm run preview   # serve the production build (CSP active)
 ```
 
-### Development
+## Editing content
 
-```bash
-npm start
-```
+- **Portfolio** (hero stats, projects, experience, skills, credentials): `src/data/site.ts`
+- **Blog posts**: Markdown in `src/content/blog/`. Frontmatter is validated at build time (`src/content.config.ts`):
 
-Site opens at `http://localhost:3000`
+  ```yaml
+  ---
+  slug: my-post            # URL: /blog/my-post
+  title: My post
+  description: One-line excerpt shown in listings and meta tags.
+  date: 2026-10-03
+  tags: [Programming]      # first tag = category on the blog index
+  references:              # optional, rendered under the article
+    - label: Some source
+      url: https://example.com
+  draft: false
+  ---
+  ```
 
-### Build
+  Body headings start at `##`. For the numbered heading style use `### <span class="num">01</span> Title`;
+  for an example call-out use `<aside class="example">…</aside>` (see `monkey-management.md`).
+- **CV download**: replace `public/cv.pdf`.
 
-```bash
-npm run build
-```
+## Notes
 
-## Customization
+- Zero framework JS: the only client scripts are the project filter, blog filter/pagination and reading progress (`src/scripts/`), and pages work without them.
+- A strict Content-Security-Policy is emitted as a meta tag in production builds (`src/layouts/Base.astro`). Fonts are self-hosted, so there are no third-party requests.
+- Pages build as `*.html` files so existing `/blog/<slug>` URLs keep working.
+- RSS: `/blog/rss.xml` · Sitemap: `/sitemap-index.xml`.
 
-Edit data files in `src/data/`:
-- `profile.ts` - Personal info
-- `skills.ts` - Technical skills
-- `experience.ts` - Work experience
-- `projects.ts` - Projects
-- `certifications.ts` - Certifications
-
-Add blog posts in `blog/` directory. Customize styling in `src/css/custom.css`.
-
-## Deployment
-
-### GitHub Pages
-
-```bash
-npm run deploy
-```
-
-### Vercel/Netlify
-
-- Build Command: `npm run build`
-- Output Directory: `build`
-
-## License
-
-MIT License
+Pushing to `main` deploys via `.github/workflows/deploy.yml`.
