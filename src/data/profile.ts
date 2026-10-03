@@ -85,17 +85,37 @@ export const skills: SkillGroup[] = [
   {
     number: '02',
     title: 'Fine-tuning',
-    items: ['QLoRA', 'LoRA', 'PEFT', 'Unsloth', 'HF Transformers', 'Domain adaptation'],
+    items: [
+      'QLoRA',
+      'LoRA', 
+      'PEFT',
+      'Unsloth', 
+      'HF Transformers', 
+      'Domain adaptation'
+    ],
   },
   {
     number: '03',
     title: 'Retrieval &amp; data',
-    items: ['Neo4j', 'Cypher', 'PGVector', 'InfluxDB', 'PostgreSQL', 'Embedding tuning'],
+    items: [
+      'Neo4j', 
+      'Cypher', 
+      'PGVector', 
+      'InfluxDB', 
+      'PostgreSQL', 
+      'Embedding tuning'
+    ],
   },
   {
     number: '04',
     title: 'Vision &amp; classical ML',
-    items: ['PyTorch', 'YOLOv11', 'OpenCV', 'OCR', 'scikit-learn', 'Time-series forecasting'],
+    items: ['PyTorch', 
+      'YOLOv11', 
+      'OpenCV', 
+      'OCR', 
+      'scikit-learn', 
+      'Time-series forecasting'
+    ],
   },
   {
     number: '05',
@@ -113,7 +133,17 @@ export const skills: SkillGroup[] = [
   {
     number: '06',
     title: 'Backend &amp; cloud',
-    items: ['FastAPI', 'Python', 'Django', 'Kafka', 'Redis', 'AWS', 'Azure', 'Docker', 'Kubernetes'],
+    items: [
+      'FastAPI', 
+      'Python', 
+      'Django', 
+      'Kafka', 
+      'Redis', 
+      'AWS', 
+      'Azure', 
+      'Docker', 
+      'Kubernetes'
+    ],
   },
   {
     number: '07',
