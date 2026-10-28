@@ -4,7 +4,7 @@ Personal site and blog of Abu Hasnat Abdullah, built with [Astro](https://astro.
 
 ## Develop
 
-Requires Node 22.12+.
+Requires Node 24 LTS (24.22.1+, see `.nvmrc`).
 
 ```bash
 npm install
